@@ -28,7 +28,7 @@ public class modifyScalesRouter extends HttpServlet {
      * @throws IOException in event of IO failure
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/scalesPage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/scaleManagementPage.jsp");
         dispatcher.forward(request, response);
         logger.info("modifyScalesRouter executed: {}", LocalDateTime.now().toString());
     }
