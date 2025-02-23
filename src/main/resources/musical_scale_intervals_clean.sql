@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `musical_scale_intervals`;
 CREATE TABLE `musical_scale_intervals` (
   `scale_id` int NOT NULL AUTO_INCREMENT,
   `scale_name` varchar(50) NOT NULL,
-  `root` tinyint unsigned NOT NULL,
-  `second` tinyint unsigned NOT NULL,
-  `third` tinyint unsigned NOT NULL,
-  `fourth` tinyint unsigned NOT NULL,
-  `fifth` tinyint unsigned NOT NULL,
-  `sixth` tinyint unsigned NOT NULL,
-  `seventh` tinyint unsigned NOT NULL,
+  `root_interval` tinyint unsigned NOT NULL,
+  `second_interval` tinyint unsigned NOT NULL,
+  `third_interval` tinyint unsigned NOT NULL,
+  `fourth_interval` tinyint unsigned NOT NULL,
+  `fifth_interval` tinyint unsigned NOT NULL,
+  `sixth_interval` tinyint unsigned NOT NULL,
+  `seventh_interval` tinyint unsigned NOT NULL,
   PRIMARY KEY (`scale_id`),
   UNIQUE KEY `unique_name` (`scale_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -43,7 +43,7 @@ CREATE TABLE `musical_scale_intervals` (
 
 LOCK TABLES `musical_scale_intervals` WRITE;
 /*!40000 ALTER TABLE `musical_scale_intervals` DISABLE KEYS */;
-INSERT INTO `musical_scale_intervals` (`scale_id`, `scale_name`, `root`, `second`, `third`, `fourth`, `fifth`, `sixth`, `seventh`) VALUES (1,'Natural Minor',0,2,3,5,7,8,10),(4,'Natural Major',0,2,4,5,7,9,11),(5,'Hungarian Minor',0,2,3,6,7,8,11);
+INSERT INTO `musical_scale_intervals` (`scale_id`, `scale_name`, `root_interval`, `second_interval`, `third_interval`, `fourth_interval`, `fifth_interval`, `sixth_interval`, `seventh_interval`) VALUES (1,'Natural Minor',0,2,3,5,7,8,10),(4,'Natural Major',0,2,4,5,7,9,11),(5,'Hungarian Minor',0,2,3,6,7,8,11);
 /*!40000 ALTER TABLE `musical_scale_intervals` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
