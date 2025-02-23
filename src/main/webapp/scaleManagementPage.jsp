@@ -35,25 +35,6 @@
                         <input type="text" id="third" name="third" pattern="^[0-9]+$"
                                class="form-control" required>
                     </label>
-
-                    <br>
-
-                    <label for="fourth">Fourth:
-                        <input type="text" id="fourth" name="fourth" pattern="^[0-9]+$"
-                               class="form-control" required>
-                    </label>
-                    <label for="fifth">Fifth:
-                        <input type="text" id="fifth" name="fifth" pattern="^[0-9]+$"
-                               class="form-control" required>
-                    </label>
-                    <label for="sixth">Sixth:
-                        <input type="text" id="sixth" name="sixth" pattern="^[0-9]+$"
-                               class="form-control" required>
-                    </label>
-                    <label for="seventh">Seventh:
-                        <input type="text" id="seventh" name="seventh" pattern="^[0-9]+$"
-                               class="form-control" required>
-                    </label>
                 </div>
             </div>
 

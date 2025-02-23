@@ -16,9 +16,10 @@ import javax.persistence.Column;
  * tonal position/distance from the root note
  * All Notes: A, A#, B, C, C#, D, D#, E, F, F#, G, G#
  * (if root == A ? secondInterval = B) A = 0, A# = 1, B = 2
+ * SHORTENED FOR TESTING
  */
 @Entity
-@Table(name = "musical_scale_intervals")
+@Table(name = "scale_intervals")
 public class MusicalScale {
 
     @Id
@@ -38,18 +39,6 @@ public class MusicalScale {
     @Column(name = "third_interval")
     private int third;
 
-    @Column(name = "fourth_interval")
-    private int fourth;
-
-    @Column(name = "fifth_interval")
-    private int fifth;
-
-    @Column(name = "sixth_interval")
-    private int sixth;
-
-    @Column(name = "seventh_interval")
-    private int seventh;
-
 
     //empty constructor
     public MusicalScale() {}
@@ -60,23 +49,14 @@ public class MusicalScale {
      * @param root root interval
      * @param second second interval
      * @param third third interval
-     * @param fourth fourth interval
-     * @param fifth fifth interval
-     * @param sixth sixth interval
-     * @param seventh interval
      */
-    public MusicalScale(String name, int root, int second, int third, int fourth,
-                        int fifth, int sixth, int seventh) {
+    public MusicalScale(String name, int root, int second, int third) {
         this.name = name;
         this.root = root;
         this.second = second;
         this.third = third;
-        this.fourth = fourth;
-        this.fifth = fifth;
-        this.sixth = sixth;
-        this.seventh = seventh;
-    }
 
+    }
 
     /**
      * return scale ID
@@ -158,69 +138,7 @@ public class MusicalScale {
         this.third = third;
     }
 
-    /**
-     * gets fourth interval
-     * @return fourth interval
-     */
-    public int getFourth() {
-        return fourth;
-    }
 
-    /**
-     * sets fourth interval
-     * @param fourth interval
-     */
-    public void setFourth(int fourth) {
-        this.fourth = fourth;
-    }
-
-    /**
-     * gets fifth interval
-     * @return fifth interval
-     */
-    public int getFifth() {
-        return fifth;
-    }
-
-    /**
-     * sets fifth interval
-     * @param fifth interval
-     */
-    public void setFifth(int fifth) {
-        this.fifth = fifth;
-    }
-
-    /**
-     * gets sixth interval
-     * @return sixth interval
-     */
-    public int getSixth() {
-        return sixth;
-    }
-
-    /**
-     * sets sixth interval
-     * @param sixth interval
-     */
-    public void setSixth(int sixth) {
-        this.sixth = sixth;
-    }
-
-    /**
-     * gets seventh interval
-     * @return seventh interval
-     */
-    public int getSeventh() {
-        return seventh;
-    }
-
-    /**
-     * sets seventh interval
-     * @param seventh interval
-     */
-    public void setSeventh(int seventh) {
-        this.seventh = seventh;
-    }
 
     /**
      * toString method - formats MusicalScale data
@@ -233,10 +151,6 @@ public class MusicalScale {
                 + ", root=" + root + '\''
                 + ", second=" + second + '\''
                 + ", third=" + third + '\''
-                + ", fourth=" + fourth + '\''
-                + ", fifth=" + fifth + '\''
-                + ", sixth=" + sixth + '\''
-                + ", seventh=" + seventh + '\''
                 + '}';
     }
 }
