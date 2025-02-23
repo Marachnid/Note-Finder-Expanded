@@ -1,4 +1,4 @@
-package utilities;
+package note.finder.utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
