@@ -24,8 +24,10 @@ public class SessionFactoryProvider {
             Metadata metadata = sources.getMetadataBuilder().build();               // Create Metadata
             sessionFactory = metadata.getSessionFactoryBuilder().build();           // Create SessionFactory
 
+            System.out.println("SessionFactory created");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("SessionFactory creation failed");
             if (registry != null) {
                 StandardServiceRegistryBuilder.destroy(registry);
             }
