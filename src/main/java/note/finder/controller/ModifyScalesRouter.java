@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Routing servlet - only forwards user to scale management interface
  */
 @WebServlet(urlPatterns = {"/modifyScalesRouter"})
-public class modifyScalesRouter extends HttpServlet {
+public class ModifyScalesRouter extends HttpServlet {
 
     //logging class
     private final Logger logger = LogManager.getLogger(this.getClass());

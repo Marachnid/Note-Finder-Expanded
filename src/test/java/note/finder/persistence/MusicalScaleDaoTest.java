@@ -92,6 +92,14 @@ class MusicalScaleDaoTest {
     }
 
     @Test
+    void getPropertyName() {
+
+        String scaleName = scaleDao.getPropertyName("hungarian minor");
+        assertEquals("Hungarian Minor", scaleName);
+//        assertEquals();
+    }
+
+    @Test
     void getByPropertyLike() {
 
         List<MusicalScale> scales = scaleDao.getByPropertyLike("name", "minor");
