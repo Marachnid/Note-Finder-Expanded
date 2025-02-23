@@ -18,7 +18,7 @@ public class MusicalScaleDao {
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
-    /**
+    /** KEEP
      * Get musicalScale by id
      */
     public MusicalScale getById(int id) {
@@ -28,9 +28,9 @@ public class MusicalScaleDao {
         return musicalScale;
     }
 
-    /**
+    /** KEEP
      * update musicalScale
-     * @param musicalScale  MusicalScale to be updated
+     * @param musicalScale  MusicalScale object to be updated
      */
     public void update(MusicalScale musicalScale) {
         Session session = sessionFactory.openSession();
@@ -40,9 +40,9 @@ public class MusicalScaleDao {
         session.close();
     }
 
-    /**
+    /** KEEP
      * insert a new musicalScale
-     * @param musicalScale  MusicalScale to be inserted
+     * @param musicalScale  MusicalScale object to be inserted
      */
     public int insert(MusicalScale musicalScale) {
         int id = 0;
@@ -55,9 +55,9 @@ public class MusicalScaleDao {
         return id;
     }
 
-    /**
+    /** KEEP
      * Delete a musicalScale
-     * @param musicalScale MusicalScale to be deleted
+     * @param musicalScale MusicalScale object to be deleted
      */
     public void delete(MusicalScale musicalScale) {
         Session session = sessionFactory.openSession();
@@ -68,7 +68,7 @@ public class MusicalScaleDao {
     }
 
 
-    /**
+    /** KEEP
      * Return a list of all musicalScales
      * @return All musicalScales
      */
@@ -86,7 +86,7 @@ public class MusicalScaleDao {
         return musicalScales;
     }
 
-    /**
+    /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
      * Get musicalScale by property (exact match)
      * sample usage: getByPropertyEqual("lastname", "Curry")
      */
@@ -98,20 +98,39 @@ public class MusicalScaleDao {
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
         Root<MusicalScale> root = query.from(MusicalScale.class);
-        query.select(root).where(builder.equal(root.get(propertyName), value));
+        query.where(builder.equal(root.get(propertyName), value));
         List<MusicalScale> musicalScales = session.createSelectionQuery( query ).getResultList();
 
         session.close();
         return musicalScales;
     }
 
-    /**
+    /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
+     * Modified version of getPropertyEqual() - only unique names exist and only a single result should return
+     */
+    public String getPropertyName(String value) {
+        Session session = sessionFactory.openSession();
+
+        logger.debug("Searching for musicalScale names with " + " = " + value);
+
+        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+        Root<MusicalScale> root = query.from(MusicalScale.class);
+        query.where(builder.equal(root.get("name"), value));
+        MusicalScale musicalScale = (session.createSelectionQuery( query ).getSingleResult());
+
+
+        session.close();
+        return musicalScale.getName();
+    }
+
+    /** KEEP
      * Get musicalScale by property (like)
      * sample usage: getByPropertyLike("lastname", "C")
      */
     public List<MusicalScale> getByPropertyLike(String propertyName, String value) {
-        Session session = sessionFactory.openSession();
 
+        Session session = sessionFactory.openSession();
         logger.debug("Searching for musicalScale with {} = {}",  propertyName, value);
 
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
