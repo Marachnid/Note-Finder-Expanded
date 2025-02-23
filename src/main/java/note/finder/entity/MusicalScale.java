@@ -1,14 +1,13 @@
 package note.finder.entity;
 
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
+//import javax.persistence.Column;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-
-
+import jakarta.persistence.*;
 
 /**
  * Class represents the intervals of a full musical scale
@@ -16,7 +15,7 @@ import javax.persistence.Column;
  * tonal position/distance from the root note
  * All Notes: A, A#, B, C, C#, D, D#, E, F, F#, G, G#
  * (if root == A ? secondInterval = B) A = 0, A# = 1, B = 2
- * SHORTENED FOR TESTING
+ * TEMPORARILY SHORTENED TO 3RD INTERVAL FOR TESTING
  */
 @Entity
 @Table(name = "scale_intervals")
