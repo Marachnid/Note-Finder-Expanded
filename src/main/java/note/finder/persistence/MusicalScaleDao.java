@@ -11,69 +11,112 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
-
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
+
+/** Dao Class for MusicalSCale's, contains queries for CRUD */
 public class MusicalScaleDao {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
-    /** KEEP
+    /**
      * Get musicalScale by id
+     * @param id id value of object to query for
      */
     public MusicalScale getById(int id) {
+
         Session session = sessionFactory.openSession();
-        MusicalScale musicalScale = session.get(MusicalScale.class, id);
-        session.close();
+        MusicalScale musicalScale = null;
+
+        try {
+            musicalScale = session.get(MusicalScale.class, id);
+
+        } catch (NoResultException exception) {
+            logger.info("No scales found for getById()", exception);
+
+        } catch (Exception exception) {
+            logger.debug("Failed to get scales by getById()", exception);
+
+        } finally {
+            session.close();
+        }
         return musicalScale;
     }
 
-    /** KEEP
+    /**
      * update musicalScale
      * @param musicalScale  MusicalScale object to be updated
      */
     public void update(MusicalScale musicalScale) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(musicalScale);
-        transaction.commit();
-        session.close();
+
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.merge(musicalScale);
+            transaction.commit();
+
+        } catch (NullPointerException exception) {
+            logger.debug("Null object used", exception);
+
+        } catch (Exception exception) {
+            logger.debug("Failed to update object", exception);
+        }
     }
 
-    /** KEEP
-     * insert a new musicalScale
+    /**
+     * insert a new musicalScale object into DB
      * @param musicalScale  MusicalScale object to be inserted
      */
     public int insert(MusicalScale musicalScale) {
-        int id = 0;
+
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.persist(musicalScale);
-        transaction.commit();
-        id = musicalScale.getId();
-        session.close();
+        int id = 0;
+
+        try {
+            Transaction transaction = session.beginTransaction();
+            session.persist(musicalScale);
+            transaction.commit();
+            id = musicalScale.getId();
+
+        } catch (ConstraintViolationException exception) {
+            logger.debug("Invalid DB data types", exception);
+
+        } catch (NullPointerException exception) {
+            logger.debug("Null object", exception);
+
+        } catch (Exception exception) {
+            logger.debug("Failed to insert object", exception);
+
+        } finally {
+            session.close();
+        }
+
         return id;
     }
 
-
-    /** KEEP
-     * Delete a musicalScale
+    /**
+     * Delete a musicalScale object from DB records
      * @param id id of MusicalScale object to be deleted
      */
     public void delete(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
 
-        MusicalScale musicalScale = session.get(MusicalScale.class, id);
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            MusicalScale musicalScale = session.get(MusicalScale.class, id);
+            session.remove(musicalScale);
+            transaction.commit();
 
-        session.remove(musicalScale);
-        transaction.commit();
-        session.close();
+        } catch (NullPointerException exception) {
+            logger.debug("Null ID value", exception);
+
+        } catch (Exception exception) {
+            logger.debug("Failed to delete object", exception);
+        }
     }
 
 
-    /** KEEP
+    /**
      * Return a list of all musicalScales
      * @return All musicalScales
      */
@@ -85,31 +128,30 @@ public class MusicalScaleDao {
         try {
             HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-            Root<MusicalScale> root = query.from(MusicalScale.class);
-            musicalScales = session.createSelectionQuery( query ).getResultList();
-
-            logger.debug("The list of musicalScales {}", musicalScales);
+            musicalScales = session.createSelectionQuery(query).getResultList();
 
         } catch (NoResultException exception) {
-            logger.info("No scales found");
+            logger.info("No scales found for getAll()");
+
+        } catch (Exception exception) {
+            logger.debug("Failed to retrieve all scales", exception);
 
         } finally {
             session.close();
         }
 
-
         return musicalScales;
     }
 
-
-    /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
-     * Modified version of getPropertyEqual() - only unique names exist and only a single result should return
+    /**
+     * Modified version of getPropertyEqual()
+     * going to need some work in the future, had to ditch unique name values
+     * to simplify updating process
+     * Servlet should handle duplicates but needs to be looked at
+     * @param value string value/keyword used to query db
      */
     public String getByPropertyName(String value) {
         Session session = sessionFactory.openSession();
-
-        logger.debug("Searching for musicalScale names with " + " = " + value);
-
         MusicalScale musicalScale;
         String scaleName = null;
 
@@ -122,7 +164,10 @@ public class MusicalScaleDao {
             scaleName = musicalScale.getName();
 
         } catch (NoResultException exception) {
-            logger.info("No scale names found with {}", value);
+            logger.info("No scales found for name: {}", scaleName, exception);
+
+        } catch (Exception exception){
+            logger.debug("Failed to get scale by name: {}", scaleName, exception);
 
         } finally {
             session.close();
@@ -131,15 +176,14 @@ public class MusicalScaleDao {
         return scaleName;
     }
 
-    /** KEEP
+    /**
      * Get musicalScale by property (like)
-     * sample usage: getByPropertyLike("lastname", "C")
+     * @param propertyName name of the column/property being queries
+     * @param value string value/keyword used for querying
      */
     public List<MusicalScale> getByPropertyLike(String propertyName, String value) {
 
         Session session = sessionFactory.openSession();
-        logger.debug("Searching for musicalScale with {} = {}",  propertyName, value);
-
         List<MusicalScale> musicalScales = null;
 
         try {
@@ -149,11 +193,13 @@ public class MusicalScaleDao {
             Expression<String> propertyPath = root.get(propertyName);
 
             query.where(builder.like(propertyPath, "%" + value + "%"));
-
-            musicalScales = session.createQuery( query ).getResultList();
+            musicalScales = session.createQuery(query).getResultList();
 
         } catch (NoResultException exception) {
-            logger.info("No scales found with {}", value);
+            logger.info("No scales found for {} = {}", propertyName, value, exception);
+
+        } catch (Exception exception) {
+            logger.debug("Failed to get scales by {} = {}",  propertyName, value, exception);
 
         } finally {
             session.close();
