@@ -44,6 +44,24 @@ public class MusicalScale {
 
     /**
      * instantiates a MusicalScale object w/interval arguments
+     * overloaded constructor - for updating scale objects
+     * @param name name of scale
+     * @param id id of scale
+     * @param root root interval
+     * @param second second interval
+     * @param third third interval
+     */
+    public MusicalScale(String name, int id, int root, int second, int third) {
+        this.name = name;
+        this.id = id;
+        this.root = root;
+        this.second = second;
+        this.third = third;
+    }
+
+    /**
+     * instantiates a MusicalScale object w/interval arguments
+     * overloaded constructor - for new scale objects being created
      * @param name name of scale
      * @param root root interval
      * @param second second interval
@@ -54,7 +72,6 @@ public class MusicalScale {
         this.root = root;
         this.second = second;
         this.third = third;
-
     }
 
     /**
