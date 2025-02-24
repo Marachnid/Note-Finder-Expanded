@@ -56,18 +56,6 @@ public class MusicalScaleDao {
         return id;
     }
 
-//    /** KEEP
-//     * Delete a musicalScale
-//     * @param musicalScale MusicalScale object to be deleted
-//     */
-//    public void delete(MusicalScale musicalScale) {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.remove(musicalScale);
-//        transaction.commit();
-//        session.close();
-//    }
-
 
     /** KEEP
      * Delete a musicalScale

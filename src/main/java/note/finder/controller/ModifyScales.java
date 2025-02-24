@@ -39,9 +39,6 @@ public class ModifyScales extends HttpServlet {
         processRequest(request, nameValidation, scaleDao, newScale);
 
         response.sendRedirect(request.getContextPath() + "/modifyScalesRouter");
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/modifyScalesRouter");
-//        dispatcher.forward(request, response);
-
         request.removeAttribute("message");
     }
 
