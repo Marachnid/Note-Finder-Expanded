@@ -35,7 +35,7 @@ public class ModifyScalesRouter extends HttpServlet {
 
         //includes a list of all existing scales on loading the page
         MusicalScaleDao scaleDao = new MusicalScaleDao();
-        scaleDao.getAll();
+//        scaleDao.getAll();
         request.setAttribute("scaleList", scaleDao.getAll());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/scaleManagementPage.jsp");
