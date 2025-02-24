@@ -50,6 +50,34 @@
     <div>
         <h2>Existing Scales</h2>
 
+        <c:if test="${not empty requestScope.scaleList}">
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Root</th>
+                    <th>Second</th>
+                    <th>Third</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="scale" items="${requestScope.scaleList}">
+                        <tr>
+                            <td>${scale.id}</td>
+                            <td>${scale.name}</td>
+                            <td>${scale.root}</td>
+                            <td>${scale.second}</td>
+                            <td>${scale.third}</td>
+                            <td><a href="/editScale">EDIT</a></td>
+                            <td><a href="/deleteScale">DELETE</a></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+        </c:if>
 
     </div>
 
