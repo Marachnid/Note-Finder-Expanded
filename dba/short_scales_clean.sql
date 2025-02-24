@@ -28,8 +28,7 @@ CREATE TABLE `scale_intervals` (
   `root_interval` int unsigned NOT NULL,
   `second_interval` int unsigned NOT NULL,
   `third_interval` int unsigned NOT NULL,
-  PRIMARY KEY (`scale_id`),
-  UNIQUE KEY `unique_name` (`scale_name`)
+  PRIMARY KEY (`scale_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
