@@ -128,6 +128,7 @@ public class MusicalScaleDao {
         try {
             HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+            query.from(MusicalScale.class);
             musicalScales = session.createSelectionQuery(query).getResultList();
 
         } catch (NoResultException exception) {
