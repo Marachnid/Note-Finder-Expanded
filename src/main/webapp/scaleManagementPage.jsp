@@ -70,8 +70,8 @@
                             <td>${scale.root}</td>
                             <td>${scale.second}</td>
                             <td>${scale.third}</td>
-                            <td><a href="/editScale">EDIT</a></td>
-                            <td><a href="/deleteScale">DELETE</a></td>
+                            <td><a href="${pageContext.request.contextPath}/editScale?id=${scale.id}">EDIT</a></td>
+                            <td><a href="${pageContext.request.contextPath}/deleteScale?id=${scale.id}">DELETE</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

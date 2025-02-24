@@ -69,8 +69,8 @@ class MusicalScaleDaoTest {
     @Test
     void delete() {
 
-        MusicalScale scaleToDelete = scaleDao.getById(1);
-        scaleDao.delete(scaleToDelete);
+//        MusicalScale scaleToDelete = scaleDao.getById(1);
+        scaleDao.delete(1);
 
         List<MusicalScale> updatedScales = scaleDao.getAll();
         assertEquals(2, updatedScales.size());
