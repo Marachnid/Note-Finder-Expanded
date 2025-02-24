@@ -13,36 +13,55 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * processing servlet to handle inserting new scales into db
+ */
 @WebServlet(urlPatterns = {"/addScale"})
 public class ModifyScales extends HttpServlet {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * gets form submission and processes request to insert new scale record
+     * @param request Https request object
+     * @param response Https response
+     * @throws ServletException In event of servlet failure
+     * @throws IOException In event of IO failure
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         MusicalScaleDao scaleDao = new MusicalScaleDao();
         MusicalScale newScale = returnNewScaleObject(request);
+        String nameValidation = scaleDao.getByPropertyName(newScale.getName()); //== null if no records found
 
-        String testName = newScale.getName();
-
-        logger.info("New scale name: " + testName);
-
-        String nameValidation = scaleDao.getPropertyName(testName);
-
-
-
-        if (checkUniqueName(newScale, nameValidation)) {
-            logger.info("Scale already exists");
-        }
-
-
-        scaleDao.insert(newScale);
-        request.setAttribute("scale", newScale);
+        processRequest(request, nameValidation, scaleDao, newScale);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("scaleManagementPage.jsp");
         dispatcher.forward(request, response);
+    }
+
+    /**
+     * handles request processing, determines if scale name is unique and can be added
+     * sets request attributes
+     * @param request Https request object
+     * @param nameValidation queried result searching db for duplicate scale names (can be null)
+     * @param scaleDao ScaleDao object
+     * @param newScale newScale
+     */
+    private void processRequest(HttpServletRequest request, String nameValidation,
+            MusicalScaleDao scaleDao, MusicalScale newScale) {
+
+        if (nameValidation != null) {
+            logger.info("Scale name already exists {}", nameValidation);
+            request.setAttribute("message", "Scale name already exists");
+
+        } else {
+            logger.info("New scale added {}", newScale.getName());
+            scaleDao.insert(newScale);
+            request.setAttribute("message", "Scale added successfully");
+        }
     }
 
     /**
@@ -57,19 +76,5 @@ public class ModifyScales extends HttpServlet {
         int third = Integer.parseInt(request.getParameter("third"));
 
         return new MusicalScale(name, root, second, third);
-    }
-
-
-    /**
-     * checks if the Scale name being entered already exists
-     * @param newScale MusicalScale object
-     * @param existingName queried value of existing names (names are unique)
-     * @return true if duplicate scale name, false if name is unique
-     */
-    private boolean checkUniqueName(MusicalScale newScale, String existingName) {
-        logger.info("Existing name: " + existingName);
-        String newName = newScale.getName();
-        logger.info("New name: " + newScale.getName());
-        return newName.equals(existingName);
     }
 }
