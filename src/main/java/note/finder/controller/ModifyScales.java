@@ -38,8 +38,11 @@ public class ModifyScales extends HttpServlet {
 
         processRequest(request, nameValidation, scaleDao, newScale);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("scaleManagementPage.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/modifyScalesRouter");
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/modifyScalesRouter");
+//        dispatcher.forward(request, response);
+
+        request.removeAttribute("message");
     }
 
     /**
@@ -54,11 +57,9 @@ public class ModifyScales extends HttpServlet {
             MusicalScaleDao scaleDao, MusicalScale newScale) {
 
         if (nameValidation != null) {
-            logger.info("Scale name already exists {}", nameValidation);
             request.setAttribute("message", "Scale name already exists");
 
         } else {
-            logger.info("New scale added {}", newScale.getName());
             scaleDao.insert(newScale);
             request.setAttribute("message", "Scale added successfully");
         }
