@@ -40,6 +40,11 @@
 
             <button type="submit" class="btn btn-primary">Create Scale</button>
         </form>
+        <div>
+            <c:if test="${not empty requestScope.message}">
+                <p>${requestScope.message}</p>
+            </c:if>
+        </div>
     </div>
 
     <div>

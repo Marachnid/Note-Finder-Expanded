@@ -1,5 +1,6 @@
 package note.finder.persistence;
 
+import jakarta.persistence.NoResultException;
 import note.finder.entity.MusicalScale;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
@@ -75,13 +76,23 @@ public class MusicalScaleDao {
     public List<MusicalScale> getAll() {
 
         Session session = sessionFactory.openSession();
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-        Root<MusicalScale> root = query.from(MusicalScale.class);
-        List<MusicalScale> musicalScales = session.createSelectionQuery( query ).getResultList();
+        List<MusicalScale> musicalScales = null;
 
-        logger.debug("The list of musicalScales {}", musicalScales);
-        session.close();
+        try {
+            HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+            Root<MusicalScale> root = query.from(MusicalScale.class);
+            musicalScales = session.createSelectionQuery( query ).getResultList();
+
+            logger.debug("The list of musicalScales {}", musicalScales);
+
+        } catch (NoResultException exception) {
+            logger.info("No scales found");
+
+        } finally {
+            session.close();
+        }
+
 
         return musicalScales;
     }
@@ -93,35 +104,53 @@ public class MusicalScaleDao {
     public List<MusicalScale> getByPropertyEqual(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
-        logger.debug("Searching for musicalScale with " + propertyName + " = " + value);
+        logger.debug("Searching for musicalScale with {} equaling {}", propertyName, value);
+        List<MusicalScale> musicalScales = null;
 
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-        Root<MusicalScale> root = query.from(MusicalScale.class);
-        query.where(builder.equal(root.get(propertyName), value));
-        List<MusicalScale> musicalScales = session.createSelectionQuery( query ).getResultList();
+        try {
+            HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+            Root<MusicalScale> root = query.from(MusicalScale.class);
+            query.where(builder.equal(root.get(propertyName), value));
+            musicalScales = session.createSelectionQuery( query ).getResultList();
 
-        session.close();
+        } catch (NoResultException exception) {
+            logger.info("No scales found with {} like {}", propertyName, value);
+
+        } finally {
+            session.close();
+        }
+
         return musicalScales;
     }
 
     /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
      * Modified version of getPropertyEqual() - only unique names exist and only a single result should return
      */
-    public String getPropertyName(String value) {
+    public String getByPropertyName(String value) {
         Session session = sessionFactory.openSession();
 
         logger.debug("Searching for musicalScale names with " + " = " + value);
 
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-        Root<MusicalScale> root = query.from(MusicalScale.class);
-        query.where(builder.equal(root.get("name"), value));
-        MusicalScale musicalScale = (session.createSelectionQuery( query ).getSingleResult());
+        MusicalScale musicalScale;
+        String scaleName = null;
 
+        try {
+            HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+            Root<MusicalScale> root = query.from(MusicalScale.class);
+            query.where(builder.equal(root.get("name"), value));
+            musicalScale = (session.createSelectionQuery( query ).getSingleResult());
+            scaleName = musicalScale.getName();
 
-        session.close();
-        return musicalScale.getName();
+        } catch (NoResultException exception) {
+            logger.info("No scale names found with {}", value);
+
+        } finally {
+            session.close();
+        }
+
+        return scaleName;
     }
 
     /** KEEP
@@ -133,15 +162,25 @@ public class MusicalScaleDao {
         Session session = sessionFactory.openSession();
         logger.debug("Searching for musicalScale with {} = {}",  propertyName, value);
 
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-        Root<MusicalScale> root = query.from(MusicalScale.class);
-        Expression<String> propertyPath = root.get(propertyName);
+        List<MusicalScale> musicalScales = null;
 
-        query.where(builder.like(propertyPath, "%" + value + "%"));
+        try {
+            HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
+            Root<MusicalScale> root = query.from(MusicalScale.class);
+            Expression<String> propertyPath = root.get(propertyName);
 
-        List<MusicalScale> musicalScales = session.createQuery( query ).getResultList();
-        session.close();
+            query.where(builder.like(propertyPath, "%" + value + "%"));
+
+            musicalScales = session.createQuery( query ).getResultList();
+
+        } catch (NoResultException exception) {
+            logger.info("No scales found with {}", value);
+
+        } finally {
+            session.close();
+        }
+
         return musicalScales;
     }
 }
