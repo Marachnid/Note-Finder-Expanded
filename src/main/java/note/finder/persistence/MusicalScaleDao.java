@@ -101,32 +101,6 @@ public class MusicalScaleDao {
         return musicalScales;
     }
 
-    /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
-     * Get musicalScale by property (exact match)
-     * sample usage: getByPropertyEqual("lastname", "Curry")
-     */
-    public List<MusicalScale> getByPropertyEqual(String propertyName, String value) {
-        Session session = sessionFactory.openSession();
-
-        logger.debug("Searching for musicalScale with {} equaling {}", propertyName, value);
-        List<MusicalScale> musicalScales = null;
-
-        try {
-            HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<MusicalScale> query = builder.createQuery(MusicalScale.class);
-            Root<MusicalScale> root = query.from(MusicalScale.class);
-            query.where(builder.equal(root.get(propertyName), value));
-            musicalScales = session.createSelectionQuery( query ).getResultList();
-
-        } catch (NoResultException exception) {
-            logger.info("No scales found with {} like {}", propertyName, value);
-
-        } finally {
-            session.close();
-        }
-
-        return musicalScales;
-    }
 
     /** NOT SURE - if I'll need this, getPropertyLike() should handle most needs
      * Modified version of getPropertyEqual() - only unique names exist and only a single result should return

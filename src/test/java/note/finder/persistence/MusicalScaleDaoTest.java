@@ -12,37 +12,36 @@ import static org.junit.jupiter.api.Assertions.*;
 class MusicalScaleDaoTest {
 
     MusicalScaleDao scaleDao;
+    MusicalScale musicalScale;
 
+    /** run setup processes before each test */
     @BeforeEach
     void setUp() {
-
         scaleDao = new MusicalScaleDao();
-
         Database database = Database.getInstance();
         database.runSQL("short_scales_clean.sql");
     }
 
+    /** tests getting a scale object/record by its id */
     @Test
     void getByIdSuccess() {
-
-        MusicalScale scale = scaleDao.getById(1);
-        assertNotNull(scale);
-        assertEquals("Natural Minor", scale.getName());
-        assertEquals(0, scale.getRoot());
-        assertEquals(2, scale.getSecond());
-        assertEquals(3, scale.getThird());
-
+        musicalScale = scaleDao.getById(1);
+        assertNotNull(musicalScale);
+        assertEquals("Natural Minor", musicalScale.getName());
+        assertEquals(0, musicalScale.getRoot());
+        assertEquals(2, musicalScale.getSecond());
+        assertEquals(3, musicalScale.getThird());
     }
 
+    /** tests updating an existing record */
     @Test
-    void update() {
-
-        MusicalScale scale = scaleDao.getById(1);
-        scale.setName("Augmented Minor");
-        scale.setRoot(0);
-        scale.setSecond(1);
-        scale.setThird(2);
-        scaleDao.update(scale);
+    void updateSuccess() {
+        musicalScale = scaleDao.getById(1);
+        musicalScale.setName("Augmented Minor");
+        musicalScale.setRoot(0);
+        musicalScale.setSecond(1);
+        musicalScale.setThird(2);
+        scaleDao.update(musicalScale);
 
         MusicalScale updatedScale = scaleDao.getById(1);
         assertEquals("Augmented Minor", updatedScale.getName());
@@ -51,46 +50,37 @@ class MusicalScaleDaoTest {
         assertEquals(2, updatedScale.getThird());
     }
 
+    /** tests inserting a new scale object into DB */
     @Test
-    void insert() {
+    void insertSuccess() {
+        musicalScale = new MusicalScale("Test", 1, 2, 3);
+        int newScaleId = scaleDao.insert(musicalScale);
+        assertNotEquals(0, newScaleId);
 
-        MusicalScale newUser = new MusicalScale("Test", 1, 2, 3);
-        int newUserId = scaleDao.insert(newUser);
-        assertNotEquals(0, newUserId);
-
-        MusicalScale createdUser = scaleDao.getById(newUserId);
-        assertEquals("Test", createdUser.getName());
-        assertEquals(1, createdUser.getRoot());
-        assertEquals(2, createdUser.getSecond());
-        assertEquals(3, createdUser.getThird());
-
+        MusicalScale createdScale = scaleDao.getById(newScaleId);
+        assertEquals("Test", createdScale.getName());
+        assertEquals(1, createdScale.getRoot());
+        assertEquals(2, createdScale.getSecond());
+        assertEquals(3, createdScale.getThird());
     }
 
+    /** tests deleting a record from DB */
     @Test
-    void delete() {
-
-//        MusicalScale scaleToDelete = scaleDao.getById(1);
+    void deleteSuccess() {
         scaleDao.delete(1);
-
         List<MusicalScale> updatedScales = scaleDao.getAll();
         assertEquals(2, updatedScales.size());
         assertNull(scaleDao.getById(1));
     }
 
+    /** tests retrieving all records from DB */
     @Test
-    void getAll() {
-
+    void getAllSuccess() {
         List<MusicalScale> scales = scaleDao.getAll();
         assertEquals(3, scales.size());
     }
 
-    @Test
-    void getByPropertyEqual() {
-
-        List<MusicalScale> scales = scaleDao.getByPropertyEqual("name", "hungarian minor");
-        assertEquals(1, scales.size());
-    }
-
+    /** tests retrieving an object by its name */
     @Test
     void getByPropertyName() {
 
@@ -98,6 +88,7 @@ class MusicalScaleDaoTest {
         assertEquals("Hungarian Minor", scaleName);
     }
 
+    /** tests retrieving an object by similarity like a search term */
     @Test
     void getByPropertyLike() {
 
