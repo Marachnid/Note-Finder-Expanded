@@ -12,6 +12,7 @@
 <properties>
     <!-- dependency versions-->
     <javaee.version>7.0</javaee.version>
+    <java.validation.version>2.0.1.Final</java.validation.version>
     <servlet.version>4.0.1</servlet.version>
     <jstl.version>1.2</jstl.version>
     <persistence.version>2.2</persistence.version>
@@ -51,7 +52,7 @@
     <dependency>
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
-        <version>2.0.1.Final</version>
+        <version>${java.validation.version}</version>
     </dependency>
 
     <!-- JSTL dependencies -->
