@@ -80,8 +80,14 @@
             Admin interface would need to include user management as well, they could probably fit on the same page
             but might be better separated to reduce mistaking one for the other.
         Templating is going to either simplify or severely complicate update/create forms.
-    Hours: TBD...
+    Hours: 
+        6-ish
 
     Notes:
+        Need to doublecheck DB requirements for project - user/pattern and scale/category table groups don't need to be connected
+            to function, but seems to simplistic.
+            Created a BOOKMARK junction chain to link user table as many-to-many with pattern and scale tables separately.
+            This method is going to require Java querying of both scale and pattern bookmarks separately, but this seems to hold better 
+            referential integrity
 
 </div>
