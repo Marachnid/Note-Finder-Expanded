@@ -74,9 +74,13 @@
     Week 5
 
     Tasks:
-        Building out indie project deliverables
-
-    Hours:
+        Building out indie project deliverables.
+        Created screen design for Home page and Profile page to cover user stories. Admin page wasn't included
+            in screen design - working prototype exists in the project already (not much different from profile page).
+            Admin interface would need to include user management as well, they could probably fit on the same page
+            but might be better separated to reduce mistaking one for the other.
+        Templating is going to either simplify or severely complicate update/create forms.
+    Hours: TBD...
 
     Notes:
 

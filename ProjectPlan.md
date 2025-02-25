@@ -21,9 +21,8 @@ PROJECT PLAN
 - [ ] User Story: Manage Public Scales (admin)
 - [ ] User Story: Highlight Caged Occurrences
 
-
-
 ### Week 9
-### Week 10
-### Week 11
-### Week 12
+- [ ] Panic type for a while
+- [ ] Look at the list of things yet to be completed
+- [ ] Abandon everything not included in the MVP
+- [ ] Limp this thing to the finish line
