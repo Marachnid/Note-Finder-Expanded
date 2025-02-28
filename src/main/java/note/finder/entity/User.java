@@ -1,14 +1,21 @@
 package note.finder.entity;
 
-/**
- * TODO not sure for this yet
- * Scales are super general, the only real differentiator is the steps in their intervals
- * which could be pretty much anything
- * MINOR / MAJOR scales are a distinction but the logic for determining either would be the same
- * Scales may or may not require a class of their own, not sure yet, probably a general class with calc methods
- *
- * User would be an entity later on - they'd have a username, first name, and a password
- */
+import jakarta.persistence.*;
+import java.util.Set;
 
+
+@Entity
+@Table(name = "user")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
+
+    @Column(name = "username")
+    private String username;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<UserPattern> patterns;
 }
