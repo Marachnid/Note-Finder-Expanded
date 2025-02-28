@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/dba/categories_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/dba/musical_scale_intervals_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/dba/short_scales_clean.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/test/resources/categories_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/test/resources/musical_scale_intervals_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/test/resources/short_scales_clean.sql" dialect="MySQL" />
   </component>
