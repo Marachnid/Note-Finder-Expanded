@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `scale_intervals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `scale_intervals` (
-                                   `scale_id` int NOT NULL AUTO_INCREMENT,
-                                   `scale_name` varchar(50) NOT NULL,
-                                   `root_interval` int unsigned NOT NULL,
-                                   `second_interval` int unsigned NOT NULL,
-                                   `third_interval` int unsigned NOT NULL,
-                                   `category_id` int NULL,
-                                   PRIMARY KEY (`scale_id`),
-                                   CONSTRAINT scale_category FOREIGN KEY (category_id) REFERENCES category (category_id)
+    `scale_id` int NOT NULL AUTO_INCREMENT,
+    `scale_name` varchar(50) NOT NULL,
+    `root_interval` int unsigned NOT NULL,
+    `second_interval` int unsigned NOT NULL,
+    `third_interval` int unsigned NOT NULL,
+    `category_id` int NOT NULL,
+PRIMARY KEY (`scale_id`),
+CONSTRAINT scale_category FOREIGN KEY (category_id) REFERENCES category (category_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
