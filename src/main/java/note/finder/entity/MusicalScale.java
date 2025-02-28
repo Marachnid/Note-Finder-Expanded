@@ -1,12 +1,5 @@
 package note.finder.entity;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-//import javax.persistence.Column;
-
 import jakarta.persistence.*;
 
 /**
@@ -18,7 +11,7 @@ import jakarta.persistence.*;
  * TEMPORARILY SHORTENED TO 3RD INTERVAL FOR TESTING
  */
 @Entity
-@Table(name = "scale_intervals")
+@Table(name = "scale")
 public class MusicalScale {
 
     @Id
@@ -29,15 +22,18 @@ public class MusicalScale {
     @Column(name = "scale_name")
     private String name;
 
-    @Column(name = "root_interval")
+    @Column(name = "root")
     private int root;
 
-    @Column(name = "second_interval")
+    @Column(name = "second")
     private int second;
 
-    @Column(name = "third_interval")
+    @Column(name = "third")
     private int third;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
+    private MusicalCategory musicalCategory;
 
     //empty constructor
     public MusicalScale() {}
