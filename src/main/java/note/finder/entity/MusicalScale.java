@@ -38,6 +38,10 @@ public class MusicalScale {
     @Column(name = "third_interval")
     private int third;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
+    private Category category;
+
 
     //empty constructor
     public MusicalScale() {}

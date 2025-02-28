@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `category` (
-                                   `category_id` int NOT NULL AUTO_INCREMENT,
-                                   `category_name` varchar(50) NOT NULL,
-                                   PRIMARY KEY (`category_id`)
+    `category_id` int NOT NULL,
+    `category_name` varchar(50) NOT NULL,
+PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

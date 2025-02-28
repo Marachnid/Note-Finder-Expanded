@@ -28,7 +28,7 @@ CREATE TABLE `scale_intervals` (
   `root_interval` int unsigned NOT NULL,
   `second_interval` int unsigned NOT NULL,
   `third_interval` int unsigned NOT NULL,
-   `category_id` int NULL,
+   `category_id` int NOT NULL,
   PRIMARY KEY (`scale_id`),
   CONSTRAINT scale_category FOREIGN KEY (category_id) REFERENCES category (category_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
