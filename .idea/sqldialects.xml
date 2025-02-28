@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/dba/categories_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/dba/musical_scale_intervals_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/dba/short_scales_clean.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/test/resources/musical_scale_intervals_clean.sql" dialect="MySQL" />
