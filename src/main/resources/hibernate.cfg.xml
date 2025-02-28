@@ -18,6 +18,9 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
 
         <mapping class="note.finder.entity.MusicalScale"/>
+        <mapping class="note.finder.entity.MusicalCategory"/>
+        <mapping class="note.finder.entity.User"/>
+        <mapping class="note.finder.entity.UserPattern"/>
 
     </session-factory>
 </hibernate-configuration>
