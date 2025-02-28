@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: note_finder_test
+-- Host: 127.0.0.1    Database: note_finder
 -- ------------------------------------------------------
 -- Server version	8.0.41
 
@@ -16,27 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `scale_intervals`
+-- Table structure for table `scale`
 --
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `scale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `category` (
-                                   `category_id` int NOT NULL AUTO_INCREMENT,
-                                   `category_name` varchar(50) NOT NULL,
-                                   PRIMARY KEY (`category_id`)
+CREATE TABLE `scale` (
+  `scale_id` int NOT NULL AUTO_INCREMENT,
+  `scale_name` varchar(30) NOT NULL,
+  `root` int NOT NULL,
+  `second` int NOT NULL,
+  `third` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`scale_id`),
+  KEY `scale_category` (`category_id`),
+  CONSTRAINT `scale_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `scale_intervals`
+-- Dumping data for table `scale`
 --
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` (`category_id`, `category_name`) VALUES (1,'Major'),(2,'Minor'),(3,'Diminished'),(4, 'Augmented');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+LOCK TABLES `scale` WRITE;
+/*!40000 ALTER TABLE `scale` DISABLE KEYS */;
+INSERT INTO `scale` (`scale_id`, `scale_name`, `root`, `second`, `third`, `category_id`) VALUES (1,'Natural Minor',0,2,3,2),(2,'Natural Major',0,2,4,1),(3,'Hungarian Minor',0,2,3,2);
+/*!40000 ALTER TABLE `scale` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-22 20:34:06
+-- Dump completed on 2025-02-28 17:02:36
