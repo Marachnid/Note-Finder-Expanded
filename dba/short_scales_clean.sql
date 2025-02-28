@@ -28,7 +28,9 @@ CREATE TABLE `scale_intervals` (
   `root_interval` int unsigned NOT NULL,
   `second_interval` int unsigned NOT NULL,
   `third_interval` int unsigned NOT NULL,
-  PRIMARY KEY (`scale_id`)
+   `category_id` int NULL,
+  PRIMARY KEY (`scale_id`),
+  CONSTRAINT scale_category FOREIGN KEY (category_id) REFERENCES category (category_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +40,7 @@ CREATE TABLE `scale_intervals` (
 
 LOCK TABLES `scale_intervals` WRITE;
 /*!40000 ALTER TABLE `scale_intervals` DISABLE KEYS */;
-INSERT INTO `scale_intervals` (`scale_id`, `scale_name`, `root_interval`, `second_interval`, `third_interval`) VALUES (1,'Natural Minor',0,2,3),(2,'Natural Major',0,2,4),(3,'Hungarian Minor',0,2,3);
+INSERT INTO `scale_intervals` (`scale_id`, `scale_name`, `root_interval`, `second_interval`, `third_interval`,`category_id`) VALUES (1,'Natural Minor',0,2,3, 2),(2,'Natural Major',0,2,4, 1),(3,'Hungarian Minor',0,2,3, 2);
 /*!40000 ALTER TABLE `scale_intervals` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
