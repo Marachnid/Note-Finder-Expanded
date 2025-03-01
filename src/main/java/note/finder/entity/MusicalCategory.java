@@ -14,7 +14,7 @@ public class MusicalCategory {
     private int id;
 
     @Column(name = "category_name")
-    private String categoryName;
+    private String name;
 
     @OneToMany(mappedBy = "musicalCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MusicalScale> musicalScales;
@@ -31,12 +31,12 @@ public class MusicalCategory {
         this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
     public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+        this.name = categoryName;
     }
 
     public Set<MusicalScale> getMusicalScales() {
