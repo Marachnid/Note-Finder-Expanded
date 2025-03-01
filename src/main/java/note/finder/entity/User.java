@@ -16,6 +16,39 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserPattern> patterns;
+
+
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<UserPattern> getPatterns() {
+        return patterns;
+    }
+
+    public void setPatterns(Set<UserPattern> patterns) {
+        this.patterns = patterns;
+    }
+
+    public String toString() {
+
+        return "";
+    }
 }
