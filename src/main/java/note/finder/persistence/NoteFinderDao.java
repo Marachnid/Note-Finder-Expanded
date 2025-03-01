@@ -72,6 +72,19 @@ public class NoteFinderDao<T> {
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
+
+
+        Object convertedValue = value;
+
+        try {
+            convertedValue = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            //log statement will go here eventually
+            //if value can't be parsed, use the original value
+
+        }
+
+
         query.select(root).where(builder.equal(root.get(propertyName), value));
         List<T> list = session.createSelectionQuery(query).getResultList();
         session.close();
