@@ -121,7 +121,7 @@ class DaoCategoryScaleTest {
         scale.setRoot(1);
         scale.setSecond(5);
         scale.setThird(7);
-        scale.setForeignKey(categoryDao.getById(1));
+        scale.setCategoryForeignKey(categoryDao.getById(1));
         scaleDao.update(scale);
 
         retrievedScale = scaleDao.getById(1);
@@ -129,7 +129,7 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getRoot(), retrievedScale.getRoot());
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
-        assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
+        assertEquals(scale.getCategoryForeignKey().getId(), retrievedScale.getCategoryForeignKey().getId());
     }
 
     /** tests updating a category */
@@ -158,7 +158,7 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getRoot(), retrievedScale.getRoot());
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
-        assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
+        assertEquals(scale.getCategoryForeignKey().getId(), retrievedScale.getCategoryForeignKey().getId());
     }
 
     /** tests inserting a category */

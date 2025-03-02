@@ -113,7 +113,7 @@ class DaoUserPatternTest {
     @Test
     void updatePattern() {
         pattern = patternDao.getById(1);
-        pattern.setPatternName("Major Triad");
+        pattern.setName("Major Triad");
         pattern.setRoot(0);
         pattern.setSecond(4);
         pattern.setThird(5);
@@ -150,7 +150,7 @@ class DaoUserPatternTest {
         assertEquals(pattern.getRoot(), retrievedPattern.getRoot());
         assertEquals(pattern.getSecond(), retrievedPattern.getSecond());
         assertEquals(pattern.getThird(), retrievedPattern.getThird());
-        assertEquals(pattern.getForeignKey().getId(), retrievedPattern.getForeignKey().getId());
+        assertEquals(pattern.getUserForeignKey().getId(), retrievedPattern.getUserForeignKey().getId());
     }
 
     /** tests inserting a user */

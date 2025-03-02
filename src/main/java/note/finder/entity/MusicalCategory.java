@@ -27,12 +27,13 @@ public class MusicalCategory {
 
 
     /**
-     * constructor for new db object (id is auto increment)
+     * constructor
      * @param name name of category
      */
     public MusicalCategory(String name) {
         this.name = name;
     }
+
 
     /**
      * get id
@@ -75,8 +76,8 @@ public class MusicalCategory {
     }
 
     /**
-     * set foreign dependency
-     * @param musicalScales set foreign dependency
+     * set musicalScales
+     * @param musicalScales set musicalScales
      */
     public void setMusicalScales(Set<MusicalScale> musicalScales) {
         this.musicalScales = musicalScales;

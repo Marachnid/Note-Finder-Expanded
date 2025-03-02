@@ -35,17 +35,18 @@ public class MusicalScale {
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
     private MusicalCategory foreignKey;
 
-    //empty constructor
+
+    /** empty constructor */
     public MusicalScale() {}
 
 
     /**
-     * instantiates a MusicalScale object w/interval arguments
-     * overloaded constructor - for new scale objects being created
+     * constructor
      * @param name name of scale
      * @param root root interval
      * @param second second interval
      * @param third third interval
+     * @param foreignKey foreign key
      */
     public MusicalScale(String name, int root, int second, int third, MusicalCategory foreignKey) {
         this.name = name;
@@ -54,6 +55,7 @@ public class MusicalScale {
         this.third = third;
         this.foreignKey = foreignKey;
     }
+
 
     /**
      * return scale ID
@@ -75,7 +77,7 @@ public class MusicalScale {
      * sets foreign key
      * @param foreignKey foreign key (MusicalCategory)
      */
-    public void setForeignKey(MusicalCategory foreignKey) {
+    public void setCategoryForeignKey(MusicalCategory foreignKey) {
         this.foreignKey = foreignKey;
     }
 
@@ -83,7 +85,7 @@ public class MusicalScale {
      * gets foreign key
      * @return foreign key
      */
-    public MusicalCategory getForeignKey() {
+    public MusicalCategory getCategoryForeignKey() {
         return foreignKey;
     }
 
