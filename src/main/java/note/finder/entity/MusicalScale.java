@@ -33,7 +33,7 @@ public class MusicalScale {
 
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
-    private MusicalCategory musicalCategory;
+    private MusicalCategory foreignKey;
 
     //empty constructor
     public MusicalScale() {}
@@ -116,6 +116,22 @@ public class MusicalScale {
      */
     public void setRoot(int root) {
         this.root = root;
+    }
+
+    /**
+     * sets foreign key
+     * @param foreignKey
+     */
+    public void setMusicalCategory(MusicalCategory foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    /**
+     * gets foreign key
+     * @return foreign key
+     */
+    public MusicalCategory getMusicalCategory() {
+        return foreignKey;
     }
 
     /**

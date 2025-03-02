@@ -4,22 +4,23 @@ import note.finder.entity.MusicalCategory;
 import note.finder.entity.MusicalScale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * testing class for NoteFinderDao, tests utilization of user, pattern, scale, and category db's
+ */
 class NoteFinderDaoTest {
 
-    NoteFinderDao scaleDao;
-    NoteFinderDao categoryDao;
+    NoteFinderDao<MusicalScale> scaleDao;
+    NoteFinderDao<MusicalCategory> categoryDao;
 
 
     @BeforeEach
     void setUp() {
 
-        scaleDao = new NoteFinderDao(MusicalScale.class);
-        categoryDao = new NoteFinderDao(MusicalCategory.class);
+        scaleDao = new NoteFinderDao<>(MusicalScale.class);
+        categoryDao = new NoteFinderDao<>(MusicalCategory.class);
 
         Database database = Database.getInstance();
         database.runSQL("category_clean.sql");
@@ -32,14 +33,22 @@ class NoteFinderDaoTest {
     void getById() {
 
         //scales
-        MusicalScale retrievedScale = (MusicalScale)scaleDao.getById(2);
+        MusicalScale retrievedScale = scaleDao.getById(2);
         assertNotNull(retrievedScale);
         assertEquals("Natural Major", retrievedScale.getName());
 
         //categories
-        MusicalCategory retrievedCategory = (MusicalCategory)categoryDao.getById(2);
+        MusicalCategory retrievedCategory = categoryDao.getById(2);
         assertNotNull(retrievedCategory);
         assertEquals("Minor", retrievedCategory.getName());
+    }
+
+
+    @Test
+    void getByForeignKey() {
+
+        List<MusicalScale> retrievedScales = scaleDao.getByForeignKey(1);
+        assertEquals(1, retrievedScales.size());
     }
 
     @Test
@@ -62,7 +71,7 @@ class NoteFinderDaoTest {
         assertEquals(1, scaleNames.size());
 
         //categories
-        List<MusicalCategory> categoryNames = categoryDao.getByPropertyEqual("id", "1");
+        List<MusicalCategory> categoryNames = categoryDao.getByPropertyEqual("name", "diminished");
         assertEquals(1, categoryNames.size());
 
     }
@@ -96,13 +105,10 @@ class NoteFinderDaoTest {
 //        scaleDao.delete(scale);
 //        assertNull(scaleDao.getById(2));
 
-        MusicalCategory category = (MusicalCategory)categoryDao.getById(1);
+        MusicalCategory category = categoryDao.getById(1);
         categoryDao.delete(category);
-
-
         assertNull(categoryDao.getById(1));
-//        assertEquals(0, scaleDao.getByPropertyLike("name", "major").size());
-        assertNull(scaleDao.getByPropertyEqual("musicalCategory", "1"));
+        assertEquals(0, scaleDao.getByForeignKey(1).size());
 
     }
 }

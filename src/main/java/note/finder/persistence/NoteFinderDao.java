@@ -1,5 +1,8 @@
 package note.finder.persistence;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Root;
@@ -15,7 +18,8 @@ import java.util.List;
 
 public class NoteFinderDao<T> {
 
-    private Class<T> type;
+    private final Class<T> type;
+    private EntityManager entityManager;
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
@@ -25,6 +29,7 @@ public class NoteFinderDao<T> {
     public NoteFinderDao(Class<T> type) {
         this.type = type;
     }
+
 
     /**
      * returns an open session from SessionFactory
@@ -45,6 +50,25 @@ public class NoteFinderDao<T> {
         session.close();
         return entity;
     }
+
+    /**
+     * grabs values by their foreign key id
+     * @param foreignId foreign ID being searched
+     * @return records list by foreign key id
+     */
+    public List<T> getByForeignKey(int foreignId) {
+
+        Session session = getSession();
+        String foreignKey = "foreignKey";
+        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        query.where(builder.equal(root.get(foreignKey).get("id"), foreignId));
+        List<T> list = session.createQuery(query).getResultList();
+        session.close();
+        return list;
+    }
+
     /**
      * returns a list of all entities
      * @return list of all entities
@@ -73,19 +97,15 @@ public class NoteFinderDao<T> {
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
 
-
+        //parses string to integer if it can be (ie "1", "2"... to 1, 2)
         Object convertedValue = value;
-
         try {
             convertedValue = Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            //log statement will go here eventually
-            //if value can't be parsed, use the original value
-
+            //if value can't be parsed, use the original value and continue
         }
 
-
-        query.select(root).where(builder.equal(root.get(propertyName), value));
+        query.select(root).where(builder.equal(root.get(propertyName), convertedValue));
         List<T> list = session.createSelectionQuery(query).getResultList();
         session.close();
 
@@ -105,7 +125,7 @@ public class NoteFinderDao<T> {
         Root<T> root = query.from(type);
         Expression<String> propertyPath = root.get(propertyName);
         query.where(builder.like(propertyPath, "%" + value + "%"));
-        List<T> list = (List<T>)session.createQuery(query).getResultList();
+        List<T> list = session.createQuery(query).getResultList();
         session.close();
 
         return list;

@@ -16,7 +16,7 @@ public class MusicalCategory {
     @Column(name = "category_name")
     private String name;
 
-    @OneToMany(mappedBy = "musicalCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MusicalScale> musicalScales;
 
 
