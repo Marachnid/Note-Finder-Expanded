@@ -38,22 +38,6 @@ public class MusicalScale {
     //empty constructor
     public MusicalScale() {}
 
-    /**
-     * instantiates a MusicalScale object w/interval arguments
-     * overloaded constructor - for updating scale objects
-     * @param name name of scale
-     * @param id id of scale
-     * @param root root interval
-     * @param second second interval
-     * @param third third interval
-     */
-    public MusicalScale(String name, int id, int root, int second, int third) {
-        this.name = name;
-        this.id = id;
-        this.root = root;
-        this.second = second;
-        this.third = third;
-    }
 
     /**
      * instantiates a MusicalScale object w/interval arguments
@@ -63,11 +47,12 @@ public class MusicalScale {
      * @param second second interval
      * @param third third interval
      */
-    public MusicalScale(String name, int root, int second, int third) {
+    public MusicalScale(String name, int root, int second, int third, MusicalCategory foreignKey) {
         this.name = name;
         this.root = root;
         this.second = second;
         this.third = third;
+        this.foreignKey = foreignKey;
     }
 
     /**
@@ -84,6 +69,22 @@ public class MusicalScale {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * sets foreign key
+     * @param foreignKey foreign key (MusicalCategory)
+     */
+    public void setForeignKey(MusicalCategory foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    /**
+     * gets foreign key
+     * @return foreign key
+     */
+    public MusicalCategory getForeignKey() {
+        return foreignKey;
     }
 
     /**
@@ -119,22 +120,6 @@ public class MusicalScale {
     }
 
     /**
-     * sets foreign key
-     * @param foreignKey
-     */
-    public void setMusicalCategory(MusicalCategory foreignKey) {
-        this.foreignKey = foreignKey;
-    }
-
-    /**
-     * gets foreign key
-     * @return foreign key
-     */
-    public MusicalCategory getMusicalCategory() {
-        return foreignKey;
-    }
-
-    /**
      * gets second interval
      * @return second interval
      */
@@ -166,11 +151,9 @@ public class MusicalScale {
         this.third = third;
     }
 
-
-
     /**
-     * toString method - formats MusicalScale data
-     * @return formatted output of object data
+     * returns a formatted string
+     * @return formatted string
      */
     public String toString() {
         return "MusicalScale{"
