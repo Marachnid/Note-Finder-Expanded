@@ -76,7 +76,7 @@ public class NoteFinderDao<T> {
         HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        List<T> list = session.createSelectionQuery(query).getResultList();
+        List<T> list = session.createSelectionQuery(query.select(root)).getResultList();
         session.close();
 
         return list;
