@@ -44,9 +44,9 @@ public class NoteFinderDao<T> {
      * Get entity by id
      * @param id id of entity being queried
      */
-    public <T>T getById(int id) {
+    public T getById(int id) {
         Session session = getSession();
-        T entity = (T)session.get(type, id);
+        T entity = session.get(type, id);
         session.close();
         return entity;
     }
@@ -147,12 +147,14 @@ public class NoteFinderDao<T> {
      * insert a new entity
      * @param entity  entity to be inserted
      */
-    public void insert(T entity) {
+    public T insert(T entity) {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
         session.persist(entity);
         transaction.commit();
         session.close();
+
+        return entity;
     }
 
     /**
