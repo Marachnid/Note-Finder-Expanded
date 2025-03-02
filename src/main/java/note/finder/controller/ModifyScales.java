@@ -1,7 +1,7 @@
 package note.finder.controller;
 
 import note.finder.entity.MusicalScale;
-import note.finder.persistence.MusicalScaleDao;
+//import note.finder.persistence.MusicalScaleDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
