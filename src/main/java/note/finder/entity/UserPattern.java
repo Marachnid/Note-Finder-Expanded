@@ -2,8 +2,9 @@ package note.finder.entity;
 
 import jakarta.persistence.*;
 
-
-
+/**
+ * Class represents patterns of a user
+ */
 @Entity
 @Table(name = "pattern")
 public class UserPattern {
@@ -14,7 +15,7 @@ public class UserPattern {
     private int id;
 
     @Column(name = "pattern_name")
-    private String patternName;
+    private String name;
 
     @Column(name = "root")
     private int root;
@@ -27,62 +28,146 @@ public class UserPattern {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_pattern"))
-    private User user;
+    private User foreignKey;
 
 
+    /** empty constructor */
+    public UserPattern() {}
 
 
+    /**
+     * constructor
+     * @param name name
+     * @param root root
+     * @param second second
+     * @param third third
+     * @param foreignKey foreignKey
+     */
+    public UserPattern(String name, int root, int second, int third, User foreignKey) {
+        this.name = name;
+        this.root = root;
+        this.second = second;
+        this.third = third;
+        this.foreignKey = foreignKey;
+    }
+
+    /**
+     * get id
+     * @return return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * set id
+     * @param id id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getPatternName() {
-        return patternName;
+    /**
+     * get foreign key
+     * @return foreignKey
+     */
+    public User getForeignKey() {
+        return foreignKey;
     }
 
-    public void setPatternName(String patternName) {
-        this.patternName = patternName;
+    /**
+     * set foreign key
+     * @param foreignKey foreignKey
+     */
+    public void setForeignKey(User foreignKey) {
+        this.foreignKey = foreignKey;
     }
 
+    /**
+     * get name
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * set name
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * get root
+     * @return root
+     */
     public int getRoot() {
         return root;
     }
 
+    /**
+     * set root
+     * @param root root
+     */
     public void setRoot(int root) {
         this.root = root;
     }
 
+    /**
+     * set second
+     * @return second
+     */
     public int getSecond() {
         return second;
     }
 
+    /**
+     * get second
+     * @param second second
+     */
     public void setSecond(int second) {
         this.second = second;
     }
 
+    /**
+     * get third
+     * @return third
+     */
     public int getThird() {
         return third;
     }
 
+    /**
+     * set third
+     * @param third get third
+     */
     public void setThird(int third) {
         this.third = third;
     }
 
-    public User getUser() {
-        return user;
+    /**
+     * get foreign key
+     * @return foreignKey
+     */
+    public User getUserForeignKey() {
+        return foreignKey;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    /**
+     * set foreign key
+     * @param foreignKey foreignKey
+     */
+    public void setUserForeignKey(User foreignKey) {
+        this.foreignKey = foreignKey;
     }
 
-
+    /**
+     * return formatted string
+     * @return formatted string
+     */
     public String toString() {
-
         return "";
     }
 }
