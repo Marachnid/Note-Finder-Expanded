@@ -25,7 +25,31 @@
                     <input type="text" id="third" name="third" pattern="^[0-9]+$"
                            class="form-control" required>
                 </label>
+
+                <fieldset class="form-group row">
+                    <legend>Category:</legend>
+                    <label for="major">Major
+                        <input type="radio" id="major" name="category" value="1"
+                               class="form-control" required>
+                    </label>
+
+                    <label for="minor">Minor
+                        <input type="radio" id="minor" name="category" value="2"
+                                class="form-control" required>
+                    </label>
+
+                    <label for="diminished">Diminished
+                        <input type="radio" id="diminished" name="category" value="3"
+                               class="form-control" required>
+                    </label>
+
+                    <label for="augmented">Augmented
+                        <input type="radio" id="augmented" name="category" value="4"
+                               class="form-control" required>
+                    </label>
+                </fieldset>
             </div>
+
         </div>
         <button type="submit" class="btn btn-primary">Create Scale</button>
     </form>
