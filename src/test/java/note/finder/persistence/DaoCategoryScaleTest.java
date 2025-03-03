@@ -85,6 +85,14 @@ class DaoCategoryScaleTest {
 
         retrievedScales = scaleDao.getByPropertyEqual("root", "0");
         assertEquals(3, retrievedScales.size());
+
+        //quick test to check what would happen if a number is included (getPropertyEqual().. tries to parse string to int)
+        category = categoryDao.getById(2);
+        scale = new MusicalScale("minor 7", 0, 1, 3, category);
+        scaleDao.insert(scale);
+
+        retrievedScales = scaleDao.getByPropertyEqual("name", "minor 7");
+        assertEquals(1, retrievedScales.size());
     }
 
     /** tests retrieving categories by properties equal */
@@ -121,7 +129,7 @@ class DaoCategoryScaleTest {
         scale.setRoot(1);
         scale.setSecond(5);
         scale.setThird(7);
-        scale.setCategoryForeignKey(categoryDao.getById(1));
+        scale.setForeignKey(categoryDao.getById(1));
         scaleDao.update(scale);
 
         retrievedScale = scaleDao.getById(1);
@@ -129,7 +137,7 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getRoot(), retrievedScale.getRoot());
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
-        assertEquals(scale.getCategoryForeignKey().getId(), retrievedScale.getCategoryForeignKey().getId());
+        assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
     }
 
     /** tests updating a category */
@@ -158,7 +166,7 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getRoot(), retrievedScale.getRoot());
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
-        assertEquals(scale.getCategoryForeignKey().getId(), retrievedScale.getCategoryForeignKey().getId());
+        assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
     }
 
     /** tests inserting a category */

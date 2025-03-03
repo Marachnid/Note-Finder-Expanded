@@ -83,12 +83,18 @@ class DaoUserPatternTest {
     void getPatternByPropertyEqual() {
         retrievedPatterns = patternDao.getByPropertyEqual("name", "test");
         assertEquals(1, retrievedPatterns.size());
+
+        retrievedPatterns = patternDao.getByPropertyEqual("id", "1");
+        assertEquals(1, retrievedPatterns.size());
     }
 
     /** tests retrieving users by properties equal */
     @Test
     void getUserByPropertyEqual() {
         retrievedUsers = userDao.getByPropertyEqual("username", "testUser");
+        assertEquals(1, retrievedUsers.size());
+
+        retrievedUsers = userDao.getByPropertyEqual("id", "1");
         assertEquals(1, retrievedUsers.size());
     }
 
@@ -117,6 +123,7 @@ class DaoUserPatternTest {
         pattern.setRoot(0);
         pattern.setSecond(4);
         pattern.setThird(5);
+        pattern.setForeignKey(userDao.getById(1));
         patternDao.update(pattern);
 
         retrievedPattern = patternDao.getById(1);
@@ -124,6 +131,7 @@ class DaoUserPatternTest {
         assertEquals(pattern.getRoot(), retrievedPattern.getRoot());
         assertEquals(pattern.getSecond(), retrievedPattern.getSecond());
         assertEquals(pattern.getThird(), retrievedPattern.getThird());
+        assertEquals(pattern.getForeignKey().getId(), retrievedPattern.getForeignKey().getId());
     }
 
     /** tests updating a user */
@@ -150,7 +158,7 @@ class DaoUserPatternTest {
         assertEquals(pattern.getRoot(), retrievedPattern.getRoot());
         assertEquals(pattern.getSecond(), retrievedPattern.getSecond());
         assertEquals(pattern.getThird(), retrievedPattern.getThird());
-        assertEquals(pattern.getUserForeignKey().getId(), retrievedPattern.getUserForeignKey().getId());
+        assertEquals(pattern.getForeignKey().getId(), retrievedPattern.getForeignKey().getId());
     }
 
     /** tests inserting a user */

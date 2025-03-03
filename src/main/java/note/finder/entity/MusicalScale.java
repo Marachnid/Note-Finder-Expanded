@@ -77,7 +77,7 @@ public class MusicalScale {
      * sets foreign key
      * @param foreignKey foreign key (MusicalCategory)
      */
-    public void setCategoryForeignKey(MusicalCategory foreignKey) {
+    public void setForeignKey(MusicalCategory foreignKey) {
         this.foreignKey = foreignKey;
     }
 
@@ -85,7 +85,7 @@ public class MusicalScale {
      * gets foreign key
      * @return foreign key
      */
-    public MusicalCategory getCategoryForeignKey() {
+    public MusicalCategory getForeignKey() {
         return foreignKey;
     }
 

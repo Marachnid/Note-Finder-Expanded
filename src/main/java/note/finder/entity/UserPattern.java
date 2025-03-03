@@ -93,7 +93,7 @@ public class UserPattern {
 
     /**
      * set name
-     * @param name
+     * @param name name
      */
     public void setName(String name) {
         this.name = name;
@@ -147,21 +147,6 @@ public class UserPattern {
         this.third = third;
     }
 
-    /**
-     * get foreign key
-     * @return foreignKey
-     */
-    public User getUserForeignKey() {
-        return foreignKey;
-    }
-
-    /**
-     * set foreign key
-     * @param foreignKey foreignKey
-     */
-    public void setUserForeignKey(User foreignKey) {
-        this.foreignKey = foreignKey;
-    }
 
     /**
      * return formatted string
