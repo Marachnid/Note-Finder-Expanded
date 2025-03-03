@@ -1,12 +1,5 @@
 package note.finder.entity;
 
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-//import javax.persistence.Column;
-
 import jakarta.persistence.*;
 
 /**
@@ -18,7 +11,7 @@ import jakarta.persistence.*;
  * TEMPORARILY SHORTENED TO 3RD INTERVAL FOR TESTING
  */
 @Entity
-@Table(name = "scale_intervals")
+@Table(name = "scale")
 public class MusicalScale {
 
     @Id
@@ -29,54 +22,40 @@ public class MusicalScale {
     @Column(name = "scale_name")
     private String name;
 
-    @Column(name = "root_interval")
+    @Column(name = "root")
     private int root;
 
-    @Column(name = "second_interval")
+    @Column(name = "second")
     private int second;
 
-    @Column(name = "third_interval")
+    @Column(name = "third")
     private int third;
 
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
-    private Category category;
+    private MusicalCategory foreignKey;
 
 
-    //empty constructor
+    /** empty constructor */
     public MusicalScale() {}
 
-    /**
-     * instantiates a MusicalScale object w/interval arguments
-     * overloaded constructor - for updating scale objects
-     * @param name name of scale
-     * @param id id of scale
-     * @param root root interval
-     * @param second second interval
-     * @param third third interval
-     */
-    public MusicalScale(String name, int id, int root, int second, int third) {
-        this.name = name;
-        this.id = id;
-        this.root = root;
-        this.second = second;
-        this.third = third;
-    }
 
     /**
-     * instantiates a MusicalScale object w/interval arguments
-     * overloaded constructor - for new scale objects being created
+     * constructor
      * @param name name of scale
      * @param root root interval
      * @param second second interval
      * @param third third interval
+     * @param foreignKey foreign key
      */
-    public MusicalScale(String name, int root, int second, int third) {
+    public MusicalScale(String name, int root, int second, int third, MusicalCategory foreignKey) {
         this.name = name;
         this.root = root;
         this.second = second;
         this.third = third;
+        this.foreignKey = foreignKey;
     }
+
 
     /**
      * return scale ID
@@ -92,6 +71,22 @@ public class MusicalScale {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * sets foreign key
+     * @param foreignKey foreign key (MusicalCategory)
+     */
+    public void setCategoryForeignKey(MusicalCategory foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    /**
+     * gets foreign key
+     * @return foreign key
+     */
+    public MusicalCategory getCategoryForeignKey() {
+        return foreignKey;
     }
 
     /**
@@ -158,11 +153,9 @@ public class MusicalScale {
         this.third = third;
     }
 
-
-
     /**
-     * toString method - formats MusicalScale data
-     * @return formatted output of object data
+     * returns a formatted string
+     * @return formatted string
      */
     public String toString() {
         return "MusicalScale{"

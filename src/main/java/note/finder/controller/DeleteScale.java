@@ -1,7 +1,7 @@
 package note.finder.controller;
 
 
-import note.finder.persistence.MusicalScaleDao;
+//import note.finder.persistence.MusicalScaleDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,9 +25,9 @@ public class DeleteScale extends HttpServlet {
             throws ServletException, IOException {
 
 
-        MusicalScaleDao scaleDao = new MusicalScaleDao();
-        int id = Integer.parseInt(request.getParameter("id"));
-        scaleDao.delete(id);
-        response.sendRedirect(request.getContextPath() + "/modifyScalesRouter");
+//        MusicalScaleDao scaleDao = new MusicalScaleDao();
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        scaleDao.delete(id);
+//        response.sendRedirect(request.getContextPath() + "/modifyScalesRouter");
     }
 }

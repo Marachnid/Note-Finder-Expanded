@@ -1,14 +1,94 @@
 package note.finder.entity;
 
-/**
- * TODO not sure for this yet
- * Scales are super general, the only real differentiator is the steps in their intervals
- * which could be pretty much anything
- * MINOR / MAJOR scales are a distinction but the logic for determining either would be the same
- * Scales may or may not require a class of their own, not sure yet, probably a general class with calc methods
- *
- * User would be an entity later on - they'd have a username, first name, and a password
- */
+import jakarta.persistence.*;
+import java.util.Set;
 
+/**
+ * Class represents a user
+ */
+@Entity
+@Table(name = "user")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
+
+    @Column(name = "username")
+    private String username;
+
+    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserPattern> patterns;
+
+
+    /** empty constructor */
+    public User() {}
+
+
+    /**
+     * constructor with arguments
+     * @param username User username
+     */
+    public User(String username) {
+        this.username = username;
+    }
+
+
+    /**
+     * get id
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * set id
+     * @param id id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * get username
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * set username
+     * @param username username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * get patterns
+     * @return patterns
+     */
+    public Set<UserPattern> getPatterns() {
+        return patterns;
+    }
+
+    /**
+     * set patterns
+     * @param patterns patterns
+     */
+    public void setPatterns(Set<UserPattern> patterns) {
+        this.patterns = patterns;
+    }
+
+    /**
+     * returns a formatted string
+     * @return formatted string
+     */
+    public String toString() {
+
+        return "";
+    }
 }

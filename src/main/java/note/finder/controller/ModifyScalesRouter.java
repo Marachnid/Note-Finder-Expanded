@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import note.finder.persistence.MusicalScaleDao;
+//import note.finder.persistence.MusicalScaleDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
@@ -33,10 +33,10 @@ public class ModifyScalesRouter extends HttpServlet {
 
         logger.info("modifyScalesRouter executed: {}", LocalDateTime.now().toString());
 
-        //includes a list of all existing scales on loading the page
-        MusicalScaleDao scaleDao = new MusicalScaleDao();
-//        scaleDao.getAll();
-        request.setAttribute("scaleList", scaleDao.getAll());
+//        //includes a list of all existing scales on loading the page
+//        MusicalScaleDao scaleDao = new MusicalScaleDao();
+////        scaleDao.getAll();
+//        request.setAttribute("scaleList", scaleDao.getAll());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/scaleManagementPage.jsp");
         dispatcher.forward(request, response);
