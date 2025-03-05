@@ -44,7 +44,6 @@
     Week 4
 
     Tasks:
-
         Hibernate reading material and videos
         Hibernate/DAO demo w/videos
         Setup and configuration of indie project (environment, DB, classes, resources/utilities, etc..)
@@ -89,5 +88,51 @@
             Created a BOOKMARK junction chain to link user table as many-to-many with pattern and scale tables separately.
             This method is going to require Java querying of both scale and pattern bookmarks separately, but this seems to hold better 
             referential integrity
+
+</div>
+
+<div>
+
+    Week 6
+
+    Tasks:
+        Implement generic Dao w/out try/catches for exception handling
+        Create improved testing environment for category/scale and user/pattern
+        Peer Review with Justin
+
+    Hours: 
+        6-10-ish, unsure of the total time
+
+    Notes: 
+        Implemented a GenericDao and built out a rebuildable testing environment
+        Went through multiple iterations of the best way to organize things and methods -
+            It took a little while to straighten out the hibernate relationship - something in the first attempt was just off,
+            I'm not sure what exactly it was, but scaled back to create a smaller user -> many pattern interaction that worked smoothly.
+            The problems might have been from implementing Hibernate one-to-many and the Genric Dao together, or it could have been a DB relationship issue,
+            The current db setup was a clean wipe from the old tables - reused user/pattern db scripts to create a refreshed version of category/scale for FK's
+        Reorganized user/category and scale/pattern to use the same naming conventions and format to make things more intuitive
+
+</div>
+
+
+<div>
+
+    Week 7
+
+    Tasks:
+        Deploy to AWS
+        Refine user stories and checkpoint 1/2 items, Peer Review items
+        Implement AWS Authentication
+
+    Hours:
+        3 hours - AWS + db connection troubleshooting for AWS deploy
+        3 hours - git-filter-repo
+
+    Notes:
+        for filtering repos, the command below worked where the ones listed in the github page didn't - maybe a different version,
+        command below is from git-filter-repo documentation in the install directory. Global delete of a file type seems to make more sense,
+        the file location has changed a couple times since it's creation
+            git filter-repo --invert-paths --path-glob '*.cfg.xml' --force
+            It should also be noted that renaming python3 to python in git-filter-repo file is required
 
 </div>
