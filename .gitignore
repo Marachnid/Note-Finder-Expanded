@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+### Keep db stuff from being shown ###
+*.cfg.xml
+database.properties
+
 ### Eclipse ###
 .apt_generated
 .classpath
