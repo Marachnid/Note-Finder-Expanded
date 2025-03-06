@@ -134,9 +134,8 @@ class DaoCategoryScaleTest {
     /** tests for known coercion exception when searching number columns like a number */
     @Test
     void getScaleByPropertyLikeFailure() {
-        assertThrows(CoercionException.class, () -> {
-            retrievedScales = scaleDao.getByPropertyLike("id", "1");
-        });
+        assertThrows(CoercionException.class, () ->
+            retrievedScales = scaleDao.getByPropertyLike("id", "1"));
 
         logger.info("getScaleByPropertyLikeFailure() Success");
     }
@@ -153,9 +152,8 @@ class DaoCategoryScaleTest {
     /** tests for known coercion exception when searching number columns like a number */
     @Test
     void getCategoryByPropertyLikeFailure() {
-        assertThrows(CoercionException.class, () -> {
-            retrievedCategories = categoryDao.getByPropertyLike("id", "1");
-        });
+        assertThrows(CoercionException.class, () ->
+            retrievedCategories = categoryDao.getByPropertyLike("id", "1"));
 
         logger.info("getCategoryByPropertyLikeFailure() Success");
     }

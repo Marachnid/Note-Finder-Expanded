@@ -127,9 +127,8 @@ class DaoUserPatternTest {
     /** tests for known coercion exception when searching number columns like a number */
     @Test
     void getPatternsByPropertyLikeFailure() {
-        assertThrows(CoercionException.class, () -> {
-            retrievedPatterns = patternDao.getByPropertyLike("id", "1");
-        });
+        assertThrows(CoercionException.class, () ->
+            retrievedPatterns = patternDao.getByPropertyLike("id", "1"));
 
         logger.info("getPatternsByPropertyLikeFailure() Success");
     }
@@ -146,9 +145,8 @@ class DaoUserPatternTest {
     /** tests for known coercion exception when searching number columns like a number */
     @Test
     void getUsersByPropertyLikeFailure() {
-        assertThrows(CoercionException.class, () -> {
-            retrievedUsers = userDao.getByPropertyLike("id", "1");
-        });
+        assertThrows(CoercionException.class, () ->
+            retrievedUsers = userDao.getByPropertyLike("id", "1"));
 
         logger.info("getUsersByPropertyLikeFailure() Success");
     }
