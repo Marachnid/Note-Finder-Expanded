@@ -1,7 +1,9 @@
 package note.finder.persistence;
-
 import note.finder.entity.User;
 import note.finder.entity.UserPattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.type.descriptor.java.CoercionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -11,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * testing class for NoteFinderDao, tests User and UserPattern classes
  */
 class DaoUserPatternTest {
+
+    Logger logger = LogManager.getLogger(this.getClass());
 
     //dao instances
     NoteFinderDao<UserPattern> patternDao;
@@ -40,13 +44,14 @@ class DaoUserPatternTest {
         database.runSQL("pattern_clean.sql");
     }
 
-
     /** tests retrieving patterns by id */
     @Test
     void getUserPatternById() {
         retrievedPattern = patternDao.getById(2);
         assertNotNull(retrievedPattern);
         assertEquals("test", retrievedPattern.getName());
+
+        logger.info("getUserPatternById() Success");
     }
 
     /** tests retrieving users by id */
@@ -55,6 +60,8 @@ class DaoUserPatternTest {
         retrievedUser = userDao.getById(1);
         assertNotNull(retrievedUser);
         assertEquals("testUser", retrievedUser.getUsername());
+
+        logger.info("getUserById() Success");
     }
 
     /** tests retrieving scales by foreign key */
@@ -62,6 +69,8 @@ class DaoUserPatternTest {
     void getPatternsByForeignKey() {
         retrievedPatterns = patternDao.getByForeignKey(1);
         assertEquals(2, retrievedPatterns.size());
+
+        logger.info("getPatternsByForeignKey() Success");
     }
 
     /** tests retrieving all patterns */
@@ -69,6 +78,8 @@ class DaoUserPatternTest {
     void getAllPatterns() {
         retrievedPatterns= patternDao.getAll();
         assertEquals(3, retrievedPatterns.size());
+
+        logger.info("getAllPatterns() Success");
     }
 
     /** tests retrieving all users */
@@ -76,6 +87,8 @@ class DaoUserPatternTest {
     void getAllUsers() {
         retrievedUsers = userDao.getAll();
         assertEquals(2, retrievedUsers.size());
+
+        logger.info("getAllUsers() Success");
     }
 
     /** tests retrieving patterns by properties equal */
@@ -86,6 +99,8 @@ class DaoUserPatternTest {
 
         retrievedPatterns = patternDao.getByPropertyEqual("id", "1");
         assertEquals(1, retrievedPatterns.size());
+
+        logger.info("getPatternByPropertyEqual() Success");
     }
 
     /** tests retrieving users by properties equal */
@@ -96,22 +111,46 @@ class DaoUserPatternTest {
 
         retrievedUsers = userDao.getByPropertyEqual("id", "1");
         assertEquals(1, retrievedUsers.size());
+
+        logger.info("getUserByPropertyEqual() Success");
     }
 
-    //TODO - will need to do something about querying number columns/values
     /** tests retrieving patterns by properties like */
     @Test
     void getPatternsByPropertyLike() {
         retrievedPatterns = patternDao.getByPropertyLike("name", "test");
         assertEquals(2, retrievedPatterns.size());
+
+        logger.info("getPatternsByPropertyLike() Success");
     }
 
-    //TODO - will need to do something about querying number columns/values
+    /** tests for known coercion exception when searching number columns like a number */
+    @Test
+    void getPatternsByPropertyLikeFailure() {
+        assertThrows(CoercionException.class, () -> {
+            retrievedPatterns = patternDao.getByPropertyLike("id", "1");
+        });
+
+        logger.info("getPatternsByPropertyLikeFailure() Success");
+    }
+
     /** tests retrieving users by properties like */
     @Test
     void getUsersByPropertyLike() {
         retrievedUsers = userDao.getByPropertyLike("username", "testUser");
         assertEquals(2, retrievedUsers.size());
+
+        logger.info("getUsersByPropertyLike() Success");
+    }
+
+    /** tests for known coercion exception when searching number columns like a number */
+    @Test
+    void getUsersByPropertyLikeFailure() {
+        assertThrows(CoercionException.class, () -> {
+            retrievedUsers = userDao.getByPropertyLike("id", "1");
+        });
+
+        logger.info("getUsersByPropertyLikeFailure() Success");
     }
 
 
@@ -132,6 +171,8 @@ class DaoUserPatternTest {
         assertEquals(pattern.getSecond(), retrievedPattern.getSecond());
         assertEquals(pattern.getThird(), retrievedPattern.getThird());
         assertEquals(pattern.getForeignKey().getId(), retrievedPattern.getForeignKey().getId());
+
+        logger.info("updatePattern() Success");
     }
 
     /** tests updating a user */
@@ -143,6 +184,8 @@ class DaoUserPatternTest {
 
         retrievedUser = userDao.getById(1);
         assertEquals(user.getUsername(), retrievedUser.getUsername());
+
+        logger.info("updateUser() Success");
     }
 
     /** tests inserting a pattern */
@@ -159,6 +202,8 @@ class DaoUserPatternTest {
         assertEquals(pattern.getSecond(), retrievedPattern.getSecond());
         assertEquals(pattern.getThird(), retrievedPattern.getThird());
         assertEquals(pattern.getForeignKey().getId(), retrievedPattern.getForeignKey().getId());
+
+        logger.info("insertPattern() Success");
     }
 
     /** tests inserting a user */
@@ -171,6 +216,8 @@ class DaoUserPatternTest {
         assertNotNull(retrievedUser);
         assertEquals(insertedUser.getId(), retrievedUser.getId());
         assertEquals(user.getUsername(), retrievedUser.getUsername());
+
+        logger.info("insertUser() Success");
     }
 
     /** tests deleting a pattern */
@@ -179,6 +226,8 @@ class DaoUserPatternTest {
         pattern = patternDao.getById(1);
         patternDao.delete(pattern);
         assertNull(patternDao.getById(1));
+
+        logger.info("deletePattern() Success");
     }
 
     /** tests deleting a user */
@@ -188,5 +237,7 @@ class DaoUserPatternTest {
         userDao.delete(user);
         assertNull(userDao.getById(1));
         assertEquals(0, patternDao.getByForeignKey(1).size());
+
+        logger.info("deleteUser() Success");
     }
 }

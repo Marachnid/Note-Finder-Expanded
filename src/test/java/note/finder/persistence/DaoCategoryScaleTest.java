@@ -1,7 +1,9 @@
 package note.finder.persistence;
-
 import note.finder.entity.MusicalCategory;
 import note.finder.entity.MusicalScale;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.type.descriptor.java.CoercionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -11,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * testing class for NoteFinderDao, tests utilization of user, pattern, scale, and category db's
  */
 class DaoCategoryScaleTest {
+
+    Logger logger = LogManager.getLogger(this.getClass());
 
     //dao instances
     NoteFinderDao<MusicalScale> scaleDao;
@@ -39,21 +43,24 @@ class DaoCategoryScaleTest {
         database.runSQL("scale_clean.sql");
     }
 
-
     /** tests retrieving scales by id */
     @Test
-    void getMusicalScaleById() {
+    void getScaleById() {
         retrievedScale = scaleDao.getById(2);
         assertNotNull(retrievedScale);
         assertEquals("Natural Major", retrievedScale.getName());
+
+        logger.info("getScaleById() Success");
     }
 
     /** tests retrieving categories by id */
     @Test
-    void getMusicalCategoryById() {
+    void getCategoryById() {
         retrievedCategory = categoryDao.getById(2);
         assertNotNull(retrievedCategory);
         assertEquals("Minor", retrievedCategory.getName());
+
+        logger.info("getCategoryById() Success");
     }
 
     /** tests retrieving scales by foreign key */
@@ -61,6 +68,8 @@ class DaoCategoryScaleTest {
     void getScalesByForeignKey() {
         retrievedScales = scaleDao.getByForeignKey(1);
         assertEquals(1, retrievedScales.size());
+
+        logger.info("getScalesByForeignKey() Success");
     }
 
     /** tests retrieving all scales */
@@ -68,6 +77,8 @@ class DaoCategoryScaleTest {
     void getAllScales() {
         retrievedScales = scaleDao.getAll();
         assertEquals(3, retrievedScales.size());
+
+        logger.info("getAllScales() Success");
     }
 
     /** tests retrieving all categories */
@@ -75,6 +86,8 @@ class DaoCategoryScaleTest {
     void getAllCategories() {
         retrievedCategories = categoryDao.getAll();
         assertEquals(4, retrievedCategories.size());
+
+        logger.info("getAllCategories() Success");
     }
 
     /** tests retrieving scales by properties equal */
@@ -93,6 +106,8 @@ class DaoCategoryScaleTest {
 
         retrievedScales = scaleDao.getByPropertyEqual("name", "minor 7");
         assertEquals(1, retrievedScales.size());
+
+        logger.info("getScaleByPropertyEqual() Success");
     }
 
     /** tests retrieving categories by properties equal */
@@ -103,22 +118,46 @@ class DaoCategoryScaleTest {
 
         retrievedCategories = categoryDao.getByPropertyEqual("id", "1");
         assertEquals(1, retrievedCategories.size());
+
+        logger.info("getCategoryByPropertyEqual() Success");
     }
 
-    //TODO - will need to do something about querying number columns/values
     /** tests retrieving scales by properties like */
     @Test
     void getScaleByPropertyLike() {
         retrievedScales = scaleDao.getByPropertyLike("name", "minor");
         assertEquals(2, retrievedScales.size());
+
+        logger.info("getScaleByPropertyLike() Success");
     }
 
-    //TODO - will need to do something about querying number columns/values
+    /** tests for known coercion exception when searching number columns like a number */
+    @Test
+    void getScaleByPropertyLikeFailure() {
+        assertThrows(CoercionException.class, () -> {
+            retrievedScales = scaleDao.getByPropertyLike("id", "1");
+        });
+
+        logger.info("getScaleByPropertyLikeFailure() Success");
+    }
+
     /** tests retrieving categories by properties like */
     @Test
     void getCategoryByPropertyLike() {
         retrievedCategories = categoryDao.getByPropertyLike("name", "mi");
         assertEquals(2, retrievedCategories.size());
+
+        logger.info("getCategoryByPropertyLike() Success");
+    }
+
+    /** tests for known coercion exception when searching number columns like a number */
+    @Test
+    void getCategoryByPropertyLikeFailure() {
+        assertThrows(CoercionException.class, () -> {
+            retrievedCategories = categoryDao.getByPropertyLike("id", "1");
+        });
+
+        logger.info("getCategoryByPropertyLikeFailure() Success");
     }
 
     /** tests updating a scale */
@@ -138,6 +177,8 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
         assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
+
+        logger.info("updateScale() Success");
     }
 
     /** tests updating a category */
@@ -150,6 +191,8 @@ class DaoCategoryScaleTest {
         retrievedCategory = categoryDao.getById(1);
         assertNotNull(retrievedCategory);
         assertEquals(category.getName(), retrievedCategory.getName());
+
+        logger.info("updateCategory() Success");
     }
 
     /** tests inserting a scale */
@@ -167,6 +210,8 @@ class DaoCategoryScaleTest {
         assertEquals(scale.getSecond(), retrievedScale.getSecond());
         assertEquals(scale.getThird(), retrievedScale.getThird());
         assertEquals(scale.getForeignKey().getId(), retrievedScale.getForeignKey().getId());
+
+        logger.info("insertMusicalScale() Success");
     }
 
     /** tests inserting a category */
@@ -179,6 +224,8 @@ class DaoCategoryScaleTest {
         assertNotNull(retrievedCategory);
         assertEquals(category.getId(), retrievedCategory.getId());
         assertEquals(category.getName(), retrievedCategory.getName());
+
+        logger.info("insertMusicalCategory() Success");
     }
 
     /** tests deleting a scale */
@@ -187,6 +234,8 @@ class DaoCategoryScaleTest {
         scale = scaleDao.getById(1);
         scaleDao.delete(scale);
         assertNull(scaleDao.getById(1));
+
+        logger.info("deleteMusicalScale() Success");
     }
 
     /** tests deleting a category */
@@ -196,5 +245,7 @@ class DaoCategoryScaleTest {
         categoryDao.delete(category);
         assertNull(categoryDao.getById(1));
         assertEquals(0, scaleDao.getByForeignKey(1).size());
+
+        logger.info("deleteMusicalCategory() Success");
     }
 }
