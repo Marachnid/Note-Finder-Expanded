@@ -123,10 +123,13 @@
         Deploy to AWS
         Refine user stories and checkpoint 1/2 items, Peer Review items
         Implement AWS Authentication
+        Fix logging setup - created separated testing logs, tweaked log policy to disable time-based file generation to the second
 
     Hours:
         3 hours - AWS + db connection troubleshooting for AWS deploy
         3 hours - git-filter-repo
+        1 hour - added more detail to user stories to indicate methods, controllers if applicable, and jsp's
+        1 hour - Logging fixes/setup, added tests to throw Coercion Exceptions
 
     Notes:
         for filtering repos, the command below worked where the ones listed in the github page didn't - maybe a different version,
