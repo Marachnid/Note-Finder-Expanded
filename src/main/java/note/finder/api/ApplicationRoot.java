@@ -5,7 +5,7 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("/services")
+@ApplicationPath("/api")
 public class ApplicationRoot extends Application{
 
     @Override
