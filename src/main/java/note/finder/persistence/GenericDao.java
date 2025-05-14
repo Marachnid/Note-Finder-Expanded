@@ -1,6 +1,5 @@
 package note.finder.persistence;
 
-import note.finder.entity.MusicalScale;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -80,7 +79,7 @@ public class GenericDao<T> {
         try (Session session = getSession()) {
             transaction = session.beginTransaction();
 
-            //retrieve existing entity from database
+            //retrieve entity by id before updating
             T existingEntity = (T) session.get(entity.getClass(), id);
             if (existingEntity != null) {
                 session.merge(entity); //only merge updated fields
