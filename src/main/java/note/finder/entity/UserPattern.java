@@ -1,5 +1,7 @@
 package note.finder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -28,6 +30,7 @@ public class UserPattern {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_pattern"))
+    @JsonIgnoreProperties({"userPatterns"})
     private User foreignKey;
 
 

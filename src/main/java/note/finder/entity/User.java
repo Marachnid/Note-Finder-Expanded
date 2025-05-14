@@ -1,5 +1,7 @@
 package note.finder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,7 +20,9 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL, orphanRemoval = true)
+    //need to come back to this later - removing orphans causing problems/hibernate errors
+    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<UserPattern> patterns;
 
 

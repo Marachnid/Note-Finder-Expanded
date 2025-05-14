@@ -13,6 +13,8 @@ public class ApplicationRoot extends Application{
         HashSet<Class<?>> h = new HashSet<>();
         h.add(ScaleServices.class);
         h.add(CategoryServices.class);
+        h.add(UserServices.class);
+        h.add(UserPatternServices.class);
         return h;
     }
 }
