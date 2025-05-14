@@ -1,5 +1,7 @@
 package note.finder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -33,6 +35,7 @@ public class MusicalScale {
 
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "scale_category"))
+    @JsonIgnoreProperties({"musicalScales"})
     private MusicalCategory foreignKey;
 
 

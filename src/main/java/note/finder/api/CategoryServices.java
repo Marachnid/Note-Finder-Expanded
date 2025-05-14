@@ -29,17 +29,16 @@ public class CategoryServices {
      * updates a category
      * @param id id parameter of category object to be updated and merged
      * @param updatedCategory category object being updated
-     * @return json response 201 - confirmation
+     * @return json response 200 - confirmation
      */
     @PUT
     @Path("/{id}")
     @Consumes("application/json")
     @Produces("application/json")
     public Response updateCategory(@PathParam("id") int id, MusicalCategory updatedCategory) {
-
         dao = new GenericDao<>(MusicalCategory.class);
         updatedCategory.setId(id);
-        dao.update(updatedCategory);
+        dao.update(updatedCategory, id); // Pass ID to retrieve existing entity
         return Response.status(200).entity("{\"message\": \"Category updated successfully\"}").build();
     }
 

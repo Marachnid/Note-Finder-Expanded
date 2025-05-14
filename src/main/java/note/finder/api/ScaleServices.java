@@ -30,18 +30,17 @@ public class ScaleServices {
      * updates a scale
      * @param id id parameter of scale to be updated
      * @param updatedScale scale object to be updated and merged
-     * @return
+     * @return json response 200 - confirmation
      */
     @PUT
     @Path("/{id}")
     @Consumes("application/json")
     @Produces("application/json")
     public Response updateScale(@PathParam("id") int id, MusicalScale updatedScale) {
-
         dao = new GenericDao<>(MusicalScale.class);
         updatedScale.setId(id);
-        dao.update(updatedScale);
-        return Response.status(200).entity("{\"message\": \"Scale updated successfully\"}").build();
+        dao.update(updatedScale, id); // Pass ID to retrieve existing entity
+        return Response.status(200).entity("{\"message\": \"Category updated successfully\"}").build();
     }
 
     /**
