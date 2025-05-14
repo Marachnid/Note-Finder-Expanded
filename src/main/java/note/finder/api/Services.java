@@ -1,7 +1,7 @@
 package note.finder.api;
 
 import note.finder.entity.MusicalScale;
-import note.finder.persistence.ScaleDao;
+import note.finder.persistence.GenericDao;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,14 +12,18 @@ import java.util.List;
 @Path("/scales")
 public class Services {
 
-    ScaleDao scaleDao = new ScaleDao();
+    GenericDao dao = new GenericDao();
 
     @GET
     @Path("/")
     @Produces("application/json")
     public Response getAllScales() {
-        List<MusicalScale> patterns = scaleDao.getAllScales();
-        return Response.status(200).entity(patterns).build();
+
+
+        List<MusicalScale> scales = dao.getAllWithForeignEntity(MusicalScale.class, "foreignKey");
+        return Response.status(200).entity(scales).build();
+
+
     }
 
 }
