@@ -1,11 +1,14 @@
 package note.finder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
 /**
  * Class represents the category of musical scales
  */
+
 @Entity
 @Table(name = "category")
 public class MusicalCategory {
@@ -19,8 +22,8 @@ public class MusicalCategory {
     private String name;
 
     @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<MusicalScale> musicalScales;
-
 
     /** empty constructor */
     public MusicalCategory() {}

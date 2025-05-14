@@ -2,9 +2,13 @@ package note.finder.persistence;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+
+import note.finder.entity.MusicalScale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
@@ -72,15 +76,28 @@ public class NoteFinderDao<T> {
      */
     public List<T> getAll() {
 
-        Session session = getSession();
-        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(type);
-        Root<T> root = query.from(type);
-        List<T> list = session.createQuery(query.select(root)).getResultList();
-        session.close();
+//        Session session = getSession();
+//        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
+//        CriteriaQuery<T> query = builder.createQuery(type);
+//        Root<T> root = query.from(type);
+//        List<T> list = session.createQuery(query.select(root)).getResultList();
+//        session.close();
+//
+//        return list;
 
+
+        List<T> list;
+
+        try (Session session = getSession()) {
+            HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
+            CriteriaQuery<T> query = builder.createQuery(type);
+            Root<T> root = query.from(type);
+            list = session.createQuery(query.select(root)).getResultList();
+        }
         return list;
     }
+
+
 
     /**
      * get entity by property (equal)

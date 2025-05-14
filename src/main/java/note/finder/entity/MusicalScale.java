@@ -166,4 +166,5 @@ public class MusicalScale {
                 + ", third=" + third + '\''
                 + '}';
     }
+
 }
