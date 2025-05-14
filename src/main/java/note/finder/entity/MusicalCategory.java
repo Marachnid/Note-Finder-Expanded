@@ -6,9 +6,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Class represents the category of musical scales
+ * Class represents a category for musical scales
  */
-
 @Entity
 @Table(name = "category")
 public class MusicalCategory {
@@ -21,9 +20,10 @@ public class MusicalCategory {
     @Column(name = "category_name")
     private String name;
 
-    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "foreignKey", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<MusicalScale> musicalScales;
+
 
     /** empty constructor */
     public MusicalCategory() {}
