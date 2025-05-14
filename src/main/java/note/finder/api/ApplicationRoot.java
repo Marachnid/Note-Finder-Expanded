@@ -11,7 +11,8 @@ public class ApplicationRoot extends Application{
     @Override
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> h = new HashSet<>();
-        h.add(Services.class);
+        h.add(ScaleServices.class);
+        h.add(CategoryServices.class);
         return h;
     }
 }
