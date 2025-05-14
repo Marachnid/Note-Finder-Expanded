@@ -9,144 +9,217 @@
 <name>Note Finder Web App</name>
 
 
-<properties>
-    <!-- dependency versions-->
-    <javaee.version>7.0</javaee.version>
-    <java.validation.version>2.0.1.Final</java.validation.version>
-    <servlet.version>4.0.1</servlet.version>
-    <jstl.version>1.2</jstl.version>
-    <persistence.version>2.2</persistence.version>
-    <hibernate.version>6.4.3.Final</hibernate.version>
-    <mysql.version>8.2.0</mysql.version>
-    <mysql.protobuf.version>4.28.2</mysql.protobuf.version>
-    <junit4.version>4.13.1</junit4.version>
-    <junit5.version>5.8.2</junit5.version>
-    <junit.platform.runner.version>1.3.2</junit.platform.runner.version>
-    <junit.vintage.version>5.8.2</junit.vintage.version>
-    <junit.surefire.version>1.3.2</junit.surefire.version>
-    <log4j.version>2.17.1</log4j.version>
-    <mockito.version>4.0.0</mockito.version>
+    <properties>
+        <!-- dependency versions-->
+        <javaee.version>7.0</javaee.version>
+        <java.validation.version>2.0.1.Final</java.validation.version>
+        <servlet.version>4.0.1</servlet.version>
+        <jstl.version>1.2</jstl.version>
+        <persistence.version>2.2</persistence.version>
+        <hibernate.version>5.6.15.Final</hibernate.version>
+        <mysql.version>8.2.0</mysql.version>
+        <mysql.protobuf.version>4.28.2</mysql.protobuf.version>
+        <junit4.version>4.13.1</junit4.version>
+        <junit5.version>5.8.2</junit5.version>
+        <junit.platform.runner.version>1.3.2</junit.platform.runner.version>
+        <junit.vintage.version>5.8.2</junit.vintage.version>
+        <junit.surefire.version>1.3.2</junit.surefire.version>
+        <log4j.version>2.17.1</log4j.version>
+        <mockito.version>4.0.0</mockito.version>
+        <jersey-version>2.29.1</jersey-version>
+        <jackson-version>2.15.0</jackson-version>
+        <jaxb-version>2.3.1</jaxb-version>
+        <swagger-version>2.2.29</swagger-version>
 
-    <!-- plugin versions -->
-    <maven.compiler.version>3.8.1</maven.compiler.version>
-    <maven.compiler.target>11</maven.compiler.target>
-    <maven.surefire.version>2.22.2</maven.surefire.version>
-    <maven.war.version>3.3.1</maven.war.version>
-</properties>
 
-<dependencies>
-    <!-- Java EE dependencies -->
-    <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-web-api</artifactId>
-        <version>${javaee.version}</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>${servlet.version}</version>
-        <scope>provided</scope>
-    </dependency>
+        <!-- plugin versions -->
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <maven.war.version>3.3.1</maven.war.version>
+    </properties>
 
-    <dependency>
-        <groupId>javax.validation</groupId>
-        <artifactId>validation-api</artifactId>
-        <version>${java.validation.version}</version>
-    </dependency>
+    <dependencies>
+        <!-- Java EE dependencies -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>${javaee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- JSTL dependencies -->
-    <dependency>
-        <groupId>javax.servlet.jsp.jstl</groupId>
-        <artifactId>jstl-api</artifactId>
-        <version>${jstl.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.glassfish.web</groupId>
-        <artifactId>jstl-impl</artifactId>
-        <version>${jstl.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${java.validation.version}</version>
+        </dependency>
 
-    <!-- persistence -->
-    <dependency>
-        <groupId>javax.persistence</groupId>
-        <artifactId>javax.persistence-api</artifactId>
-        <version>${persistence.version}</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate.orm</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>${hibernate.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate.orm</groupId>
-        <artifactId>hibernate-c3p0</artifactId>
-        <version>${hibernate.version}</version>
-    </dependency>
+        <!-- JSTL dependencies -->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
 
-    <!-- MySql -->
-    <dependency>
-        <groupId>com.mysql</groupId>
-        <artifactId>mysql-connector-j</artifactId>
-        <version>${mysql.version}</version>
-    </dependency>
-    <dependency><!-- resolves mysql dependency vulnerability -->
-        <groupId>com.google.protobuf</groupId>
-        <artifactId>protobuf-java</artifactId>
-        <version>${mysql.protobuf.version}</version>
-    </dependency>
+        <!-- persistence -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>${persistence.version}</version>
+        </dependency>
 
-    <!-- JUNIT w/version compatibility -->
-    <dependency><!-- Junit 4 -->
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit4.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency><!-- Junit 5 -->
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit5.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency><!-- for running Junit 4 and 5-->
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-runner</artifactId>
-        <version>${junit.platform.runner.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency><!-- for running older Junit 3 - 4 tests -->
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>${junit.vintage.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency><!-- for testing with Maven Surefire plugin -->
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-surefire-provider</artifactId>
-        <version>${junit.surefire.version}</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>${mockito.version}</version>
-        <scope>test</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
 
-    <!-- logging -->
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>${log4j.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j.version}</version>
-    </dependency>
-</dependencies>
+        <!-- MySql -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <dependency><!-- resolves mysql dependency vulnerability -->
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${mysql.protobuf.version}</version>
+        </dependency>
+
+        <!-- JUNIT w/version compatibility -->
+        <dependency><!-- Junit 4 -->
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit4.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency><!-- Junit 5 -->
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency><!-- for running Junit 4 and 5-->
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${junit.platform.runner.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency><!-- for running older Junit 3 - 4 tests -->
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.vintage.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency><!-- for testing with Maven Surefire plugin -->
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>${junit.surefire.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!--jersey-->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+
+
+        <!--  These are extra dependencies I had to add to make this work  -->
+        <!--  It could be caused by other packages, or implicit uses of XML by other dependencies  -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb-version}</version>
+        </dependency>
+
+        <!--this is used to output maps as JSON data w/jersey and jackson-->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <!--    -->
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+    </dependencies>
+
 
 <build>
     <plugins>

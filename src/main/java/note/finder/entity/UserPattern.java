@@ -1,6 +1,6 @@
 package note.finder.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 /**
  * Class represents patterns of a user

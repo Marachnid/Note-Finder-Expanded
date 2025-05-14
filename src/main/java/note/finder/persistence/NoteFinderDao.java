@@ -1,8 +1,8 @@
 package note.finder.persistence;
 
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Root;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -57,7 +57,7 @@ public class NoteFinderDao<T> {
 
         Session session = getSession();
         String foreignKey = "foreignKey";
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
         query.where(builder.equal(root.get(foreignKey).get("id"), foreignId));
@@ -73,10 +73,10 @@ public class NoteFinderDao<T> {
     public List<T> getAll() {
 
         Session session = getSession();
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        List<T> list = session.createSelectionQuery(query.select(root)).getResultList();
+        List<T> list = session.createQuery(query.select(root)).getResultList();
         session.close();
 
         return list;
@@ -90,7 +90,7 @@ public class NoteFinderDao<T> {
     public List<T> getByPropertyEqual(String propertyName, String value) {
 
         Session session = getSession();
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
 
@@ -103,7 +103,7 @@ public class NoteFinderDao<T> {
         }
 
         query.select(root).where(builder.equal(root.get(propertyName), convertedValue));
-        List<T> list = session.createSelectionQuery(query).getResultList();
+        List<T> list = session.createQuery(query).getResultList();
         session.close();
 
         return list;
@@ -117,7 +117,7 @@ public class NoteFinderDao<T> {
     public List<T> getByPropertyLike(String propertyName, String value) {
 
         Session session = getSession();
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
+        HibernateCriteriaBuilder builder = (HibernateCriteriaBuilder) session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
         Expression<String> propertyPath = root.get(propertyName);
